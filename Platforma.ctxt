@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Platforma
+comment1.params=poloha
+comment1.target=Platforma(Poloha)
+comment2.params=smer
+comment2.target=void\ pohniNaNovuPoziciu(Smer)
+comment3.params=
+comment3.target=int\ getPlatformaX()
+comment4.params=
+comment4.target=int\ getPlatformaY()
+comment5.params=x
+comment5.target=void\ setPlatformuX(int)
+comment6.params=
+comment6.target=void\ zobrazPlatformu()
+comment7.params=
+comment7.target=void\ skryPlatformu()
+comment8.params=farba
+comment8.target=void\ zmenFarbu(java.lang.String)
+numComments=9
