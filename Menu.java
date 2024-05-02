@@ -8,7 +8,7 @@ import fri.shapesge.Manazer;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Menu {
+public abstract class Menu {
     private Obdlznik pozadie;
     
     private Manazer manazer;
