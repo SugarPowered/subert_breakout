@@ -1,5 +1,6 @@
 import fri.shapesge.Obdlznik;
-import fri.shapesge.Text;
+import fri.shapesge.TextBlock;
+
 import java.awt.Font;
 
 /**
@@ -15,8 +16,8 @@ public class BlackScreen {
      */
     private Font font;
     private Obdlznik obdlznik;
-    private Text nadpis;
-    private Text podnadpis;
+    private TextBlock nadpis;
+    private TextBlock podnadpis;
     
     public BlackScreen(String stavHry) {
         this.obdlznik = new Obdlznik(0, 0);
@@ -25,16 +26,16 @@ public class BlackScreen {
         
         this.podnadpis = null;
         if (stavHry.equals("pauza")) {
-            this.nadpis = new Text("Pauza", 300, 220);
+            this.nadpis = new TextBlock("Pauza", 300, 220);
             this.nadpis.changeColor("white");
             
-            this.podnadpis = new Text("Stlac MEZDERNIK a hraj dalej", 245, 245);
+            this.podnadpis = new TextBlock("Stlac MEZDERNIK a hraj dalej", 245, 245);
             this.podnadpis.changeColor("white");
         } else if (stavHry.equals("prehra")) {
-            this.nadpis = new Text("Smola :(", 300, 220);
+            this.nadpis = new TextBlock("Smola :(", 300, 220);
             this.nadpis.changeColor("white");
             
-            this.podnadpis = new Text("neboj sa, vyjde to nabuduce!", 255, 245);
+            this.podnadpis = new TextBlock("neboj sa, vyjde to nabuduce!", 255, 245);
             this.podnadpis.changeColor("white");
             
         } 

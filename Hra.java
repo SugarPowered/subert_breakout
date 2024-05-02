@@ -2,6 +2,9 @@ import java.util.Random;
 import fri.shapesge.Manazer;
 
 public class Hra {
+    private int sirkaObrazovky;
+    private int vyskaObrazovky;
+
     private Smer smer; // Smer Platformy
     private SmerLopticky smerLopticky;
     private Poloha poloha; 
@@ -14,11 +17,13 @@ public class Hra {
     private int pocetTehiel;
     
     private Manazer manazer;
-    private Menu menu;
+    private StartMenu menu;
     private int tikCounter;
     private boolean hraBezi;
     private boolean hraPaused;
-    
+
+
+
     // Hra() vykresli zaciatocny stav hry
     public Hra() {
         //default poloha platformy + konstruktor
@@ -30,8 +35,8 @@ public class Hra {
         this.lopticka = new Lopticka(defaultPolohaLopticky);
 
         //rozlisenie obrazovky
-        int sirkaObrzovky = 640
-        int vyskaObrazovky = 480
+        this.sirkaObrazovky = 640;
+        this.vyskaObrazovky = 480;
 
         // dlzka a sirka steny
         int vyska = 7;
@@ -55,7 +60,7 @@ public class Hra {
             }
         }
         
-        this.menu = new Menu();
+        this.menu = new StartMenu();
         this.manazer = new Manazer();
         this.manazer.spravujObjekt(this);
         this.hraPaused = false;
@@ -207,7 +212,7 @@ public class Hra {
     
     public void start() { // metoda ktorou spustis hru, lopticka ide vlavo hore
         if (this.menu == null) {
-            this.menu = new Menu();
+            this.menu = new StartMenu();
         }
         
         if (!this.menu.getZapniHru()) {
