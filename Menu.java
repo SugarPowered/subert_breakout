@@ -29,7 +29,7 @@ public abstract class Menu {
         this.pozadie.zmenFarbu("black");
         this.pozadie.skry();
 
-        this.titulnaFotka = new Obrazok("img/title.png");
+        this.titulnaFotka = new Obrazok("subert_breakout//img//title.png");
         this.titulnaFotka.posunVodorovne(-100);
         this.titulnaFotka.posunZvisle(-100);
     }

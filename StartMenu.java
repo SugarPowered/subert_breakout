@@ -27,25 +27,27 @@ public class StartMenu extends Menu {
         this.manazer.spravujObjekt(this);
         this.zapniHru = false;
 
-        this.titulnaFotka = new Obrazok("img/title.png");
+        this.titulnaFotka = new Obrazok("subert_breakout//img//title.png");
         this.titulnaFotka.posunVodorovne(-100);
         this.titulnaFotka.posunZvisle(-100);
 
-        this.spustitTlacidlo = new Obrazok("img/spustit.png");
+        this.spustitTlacidlo = new Obrazok("subert_breakout//img//spustit.png");
         this.spustitTlacidlo.posunVodorovne(25);
         this.spustitTlacidlo.posunZvisle(170);
 
-        this.odistTlacidlo = new Obrazok("img/odist.png");
+        this.odistTlacidlo = new Obrazok("subert_breakout//img//odist.png");
         this.odistTlacidlo.posunVodorovne(265);
         this.odistTlacidlo.posunZvisle(170);
     }
 
     public void skry() {
+        super.skry();
         this.spustitTlacidlo.skry();
         this.odistTlacidlo.skry();
     }
 
     public void zobraz() {
+        super.zobraz();
         this.spustitTlacidlo.zobraz();
         this.odistTlacidlo.zobraz();
     }

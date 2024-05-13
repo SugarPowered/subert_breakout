@@ -17,7 +17,7 @@ public class Hra {
     private int pocetTehiel;
     
     private Manazer manazer;
-    private StartMenu menu;
+    private Menu menu;
     private int tikCounter;
     private boolean hraBezi;
     private boolean hraPaused;
@@ -214,16 +214,18 @@ public class Hra {
         if (this.menu == null) {
             this.menu = new StartMenu();
         }
-        
-        if (!this.menu.getZapniHru()) {
-            this.menu.zobraz();
-        } else if (this.menu.getZapniHru()) {
-            this.menu.skry();
-            if (!this.hraBezi) {
-                this.hraBezi = true;
-                this.smerLopticky = SmerLopticky.VLAVO_HORE;
-                this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+
+        if (this.menu.getZapniHru()) {
+            if (this.menu.getZapniHru()) {
+                this.menu.skry();
+                if (!this.hraBezi) {
+                    this.hraBezi = true;
+                    this.smerLopticky = SmerLopticky.VLAVO_HORE;
+                    this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+                }
             }
+        } else {
+            this.menu.zobraz();
         }
     }
     

@@ -26,7 +26,7 @@ public class EndMenu extends Menu {
         this.manazer.spravujObjekt(this);
         this.zapniHru = false;
 
-        this.titulnaFotka = new Obrazok("img/title.png");
+        this.titulnaFotka = new Obrazok("subert_breakout//img//title.png");
         this.titulnaFotka.posunVodorovne(-100);
         this.titulnaFotka.posunZvisle(-100);
 
