@@ -22,12 +22,12 @@ public class Platforma {
         this.poloha = new Poloha(poloha.getX(), poloha.getY()); // priradenie polohy
     }
     
-    public void pohniNaNovuPoziciu(Smer smer) {
-        if (smer.getVektorX() == 1) { //smer posunu vpravo
+    public void pohniNaNovuPoziciu(SmerPlatformy smerPlatformy) {
+        if (smerPlatformy.getVektorX() == 1) { //smer posunu vpravo
             int vzdialenost = 1;
             this.poloha.setX(this.poloha.getX() + vzdialenost);  // posun atributu poloha
             this.obdlznik.posunVodorovne(vzdialenost);
-        } else if (smer.getVektorX() == -1) { //smer posun vlavo
+        } else if (smerPlatformy.getVektorX() == -1) { //smer posun vlavo
             int vzdialenost = -1;
             this.poloha.setX(this.poloha.getX() + vzdialenost);  // posun atributu poloha
             this.obdlznik.posunVodorovne(vzdialenost);
@@ -37,7 +37,8 @@ public class Platforma {
     public int getPlatformaX() {
         return this.poloha.getX();
     }
-    
+
+    // Metody pre pripadne pouzitie: TODO: vycistit
     public int getPlatformaY() {
         return this.poloha.getY();
     }

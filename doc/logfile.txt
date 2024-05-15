@@ -2,13 +2,13 @@ Project documentation
 <---- javadoc command: ---->
 C:\Program Files\BlueJ FRI Edition\jdk\bin\javadoc.exe
 -sourcepath
-C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert
+C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert
 -source
 11
 -classpath
-C:\Program Files\BlueJ FRI Edition\lib\bluejcore.jar;C:\Program Files\BlueJ FRI Edition\lib\junit-4.11.jar;C:\Program Files\BlueJ FRI Edition\lib\hamcrest-core-1.3.jar;C:\Program Files\BlueJ FRI Edition\lib\lang-stride.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.base.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.controls.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.fxml.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.graphics.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.media.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.properties.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.swing.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.web.jar;C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\shapesGE-SK.jar;C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert
+C:\Program Files\BlueJ FRI Edition\lib\bluejcore.jar;C:\Program Files\BlueJ FRI Edition\lib\junit-4.11.jar;C:\Program Files\BlueJ FRI Edition\lib\hamcrest-core-1.3.jar;C:\Program Files\BlueJ FRI Edition\lib\lang-stride.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.base.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.controls.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.fxml.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.graphics.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.media.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.properties.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.swing.jar;C:\Program Files\BlueJ FRI Edition\lib\javafx\lib\javafx.web.jar;C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\shapesGE-SK.jar;C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert
 -d
-C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\doc
+C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\doc
 -encoding
 UTF-8
 -charset
@@ -24,25 +24,25 @@ breakout_subert
 -Xdoclint:none
 -link
 https://docs.oracle.com/en/java/javase/11/docs/api/
-C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/Smer.java
-C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/Tehla.java
-C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/Hra.java
-C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/Lopticka.java
-C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/Poloha.java
-C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/Main.java
-C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/SmerLopticky.java
-C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/Platforma.java
+C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/SmerPlatformy.java
+C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/Tehla.java
+C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/Hra.java
+C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/Lopticka.java
+C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/Poloha.java
+C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/Main.java
+C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/SmerLopticky.java
+C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert/Platforma.java
 <---- end of javadoc command ---->
-Loading source file C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Smer.java...
-Loading source file C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Tehla.java...
-Loading source file C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Hra.java...
-Loading source file C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Lopticka.java...
-Loading source file C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Poloha.java...
-Loading source file C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Main.java...
-Loading source file C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\SmerLopticky.java...
-Loading source file C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Platforma.java...
+Loading source file C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\SmerPlatformy.java...
+Loading source file C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Tehla.java...
+Loading source file C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Hra.java...
+Loading source file C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Lopticka.java...
+Loading source file C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Poloha.java...
+Loading source file C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Main.java...
+Loading source file C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\SmerLopticky.java...
+Loading source file C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Platforma.java...
 Constructing Javadoc information...
-C:\Users\micha\OneDrive - Žilinská univerzita v Žiline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Hra.java:4: error: cannot find symbol
+C:\Users\micha\OneDrive - ï¿½ilinskï¿½ univerzita v ï¿½iline\Bc. Informatika a riadenie\informatika1\semestralka\breakout_subert\Hra.java:4: error: cannot find symbol
 import fri.shapesge.Text;
                    ^
   symbol:   class Text

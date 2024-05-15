@@ -17,10 +17,6 @@ public class Lopticka {
         this.poloha = new Poloha(poloha.getX(), poloha.getY()); // startovacia poloha
     }
     
-    public Poloha getPoloha() {
-        return this.poloha;
-    } 
-    
     public int getLoptickaX() {
         return this.poloha.getX();
     }
@@ -28,45 +24,29 @@ public class Lopticka {
     public int getLoptickaY() {
         return this.poloha.getY();
     }
-    
+
     public void pohniNaNovuPoziciu(SmerLopticky smerLopticky) {
-        if (smerLopticky.getUhol() == 225) { // Posun Vpravo Dole
-            // manualny posun na platne
-            int vzdialenost = 1;
-            this.kruh.posunVodorovne(vzdialenost);
-            this.kruh.posunZvisle(vzdialenost);
-            
-            //zmena v atribute poloha
-            this.poloha = new Poloha(this.poloha.getX() + vzdialenost, this.poloha.getY() + vzdialenost );
-        } else if (smerLopticky.getUhol() == 315) { // Posun Vlavo Dole
-            // manualny posun na platne
-            int vzdialenostX = -1;
-            int vzdialenostY = 1;
-            this.kruh.posunVodorovne(vzdialenostX);
-            this.kruh.posunZvisle(vzdialenostY);
-            
-            //zmena v atribute poloha
-            this.poloha = new Poloha(this.poloha.getX() + vzdialenostX, this.poloha.getY() + vzdialenostY );
-        } else if (smerLopticky.getUhol() == 45) { // Posun Vlavo Hore
-            // manualny posun na platne
-            int vzdialenost = -1;
-            this.kruh.posunVodorovne(vzdialenost);
-            this.kruh.posunZvisle(vzdialenost); 
-            
-            // zmena v atribute poloha
-            this.poloha = new Poloha(this.poloha.getX() + vzdialenost, this.poloha.getY() + vzdialenost );
-        } else if (smerLopticky.getUhol() == 135) { // Posun Vpravo Hore
-            // manualny posun na platne
-            int vzdialenostX = 1;
-            int vzdialenostY = -1;
-            this.kruh.posunVodorovne(vzdialenostX);
-            this.kruh.posunZvisle(vzdialenostY);
-            
-            //zmena v atribute poloha
-            this.poloha = new Poloha(this.poloha.getX() + vzdialenostX, this.poloha.getY() + vzdialenostY );
-        } 
+        Poloha posun = vypocitajPosun(smerLopticky);
+        this.kruh.posunVodorovne(posun.getX());
+        this.kruh.posunZvisle(posun.getY());
+        this.poloha = new Poloha(this.poloha.getX() + posun.getX(), this.poloha.getY() + posun.getY());
     }
-    
+
+    private Poloha vypocitajPosun(SmerLopticky smerLopticky) {
+        return switch (smerLopticky) {
+            case VLAVO_HORE -> new Poloha(-1, -1);
+            case VLAVO_DOLU -> new Poloha(-1, 1);
+            case VPRAVO_HORE -> new Poloha(1, -1);
+            case VPRAVO_DOLU -> new Poloha(1, 1);
+        };
+    }
+
+    // Metody pre pripadne pouzitie: TODO: vycistit
+
+    public Poloha getPoloha() {
+        return this.poloha;
+    }
+
     public void setPoloha(Poloha poloha) {
         //vyresetuj povodnu polohu na platne
         this.kruh.posunVodorovne(-this.poloha.getX());

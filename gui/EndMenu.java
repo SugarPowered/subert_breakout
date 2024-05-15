@@ -11,8 +11,6 @@ public class EndMenu extends Menu {
     private Tlacidlo tlacidloRestart;
     private Tlacidlo tlacidloOdist;
 
-    private Manazer manazer;
-
     private boolean zapniHru;
 
     private boolean restartuj;

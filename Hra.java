@@ -1,5 +1,6 @@
 import java.util.Random;
 import fri.shapesge.Manazer;
+import fri.shapesge.TextBlock;
 import gui.BlackScreen;
 import gui.EndMenu;
 import gui.Menu;
@@ -13,21 +14,20 @@ import gui.StartMenu;
  */
 
 public class Hra {
-    private int sirkaObrazovky;
-    private int vyskaObrazovky;
+    private final int sirkaObrazovky;
+    private final int vyskaObrazovky;
 
-    private Smer smer; // Smer Platformy
+    private SmerPlatformy smerPlatformy; // Smer Platformy
     private SmerLopticky smerLopticky;
-    private Poloha poloha; 
     
-    private Platforma platforma;
-    private Lopticka lopticka;
+    private final Platforma platforma;
+    private final Lopticka lopticka;
     private Tehla tehla;
     private BlackScreen blackScreen;
-    private Tehla[][] stenaTehiel;
+    private final Tehla[][] stenaTehiel;
     private int pocetTehiel;
     
-    private Manazer manazer;
+    private final Manazer manazer;
     private Menu menu;
 
     private int tikCounter;
@@ -53,7 +53,7 @@ public class Hra {
         // dlzka a sirka steny
         int vyska = 7;
         int sirka = 14;
-        this.pocetTehiel = vyska * sirka;
+
         
         // dlzka a sirka jednej tehly   
         int dlzkaTehly = 40;
@@ -70,6 +70,13 @@ public class Hra {
             }
         }
 
+        // pocitadlo rozbitych tehiel
+        this.pocetTehiel = vyska * sirka;
+        int celkovyPocetTehiel = vyska * sirka;
+        TextBlock pocitadlo = new TextBlock(this.pocetTehiel + "/" + celkovyPocetTehiel, 600, 20);
+        pocitadlo.changeColor("white");
+        pocitadlo.makeVisible();
+
         //incializacia menu a manazera
         this.menu = new StartMenu();
         this.manazer = new Manazer();
@@ -78,11 +85,11 @@ public class Hra {
     }
     
     public void posunVlavo() { // trigger sipkaVlavo
-        this.smer = Smer.VLAVO;
+        this.smerPlatformy = SmerPlatformy.VLAVO;
     }
     
     public void posunVpravo() { // trigger sipkaVpravo
-        this.smer = Smer.VPRAVO;
+        this.smerPlatformy = SmerPlatformy.VPRAVO;
     }
     
     public void tik() { //posiela sa kazde 2ms
@@ -100,96 +107,74 @@ public class Hra {
                 if (this.lopticka.getLoptickaX() <= 0) {
                     //vzdy sa odrazi vlavo dole
                     if (this.smerLopticky == SmerLopticky.VLAVO_DOLU) {
-                        this.smerLopticky = SmerLopticky.VPRAVO_DOLU;
-                        this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+                        this.zmenSmerLopticky(SmerLopticky.VPRAVO_DOLU);
                     } else {
-                        this.smerLopticky = SmerLopticky.VPRAVO_HORE;
-                        this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+                        this.zmenSmerLopticky(SmerLopticky.VPRAVO_HORE);
                     }
-                    
+
                 // odraz od stropu
-                } else if (this.lopticka.getLoptickaY() <= 0) {  
+                } else if (this.lopticka.getLoptickaY() <= 0) {
                     //vzdy sa odrazi vlavo hore
                     if (this.smerLopticky == SmerLopticky.VLAVO_HORE) {
-                        this.smerLopticky = SmerLopticky.VLAVO_DOLU;
-                        this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+                        this.zmenSmerLopticky(SmerLopticky.VLAVO_DOLU);
                     } else {
-                        this.smerLopticky = SmerLopticky.VPRAVO_DOLU;
-                        this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+                        this.zmenSmerLopticky(SmerLopticky.VPRAVO_DOLU);
                     }
-                    
+
                 // odraz od pravej steny
                 } else if (this.lopticka.getLoptickaX() >= (this.sirkaObrazovky - 10)) {
                     //vzdy sa odrazi do lava dole
                     if (this.smerLopticky == SmerLopticky.VPRAVO_HORE) {
-                        this.smerLopticky = SmerLopticky.VLAVO_HORE;
-                        this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+                        this.zmenSmerLopticky(SmerLopticky.VLAVO_HORE);
                     } else {
-                        this.smerLopticky = SmerLopticky.VLAVO_DOLU;
-                        this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+                        this.zmenSmerLopticky(SmerLopticky.VLAVO_DOLU);
                     }
-                    
-                // odraz od platformy    
+
+                // odraz od platformy
                 } else if ((this.lopticka.getLoptickaY() >= 415 && this.lopticka.getLoptickaY() <= 430 )
-                        && (this.lopticka.getLoptickaX() >= this.platforma.getPlatformaX()) 
+                        && (this.lopticka.getLoptickaX() >= this.platforma.getPlatformaX())
                             && (this.lopticka.getLoptickaX() <= this.platforma.getPlatformaX() + Platforma.DLZKA)) {
                     //ak lopticka leti z lava smerom dole
                     if (this.smerLopticky == SmerLopticky.VPRAVO_DOLU) {
-                        this.smerLopticky = SmerLopticky.VPRAVO_HORE;
-                        this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+                        this.zmenSmerLopticky(SmerLopticky.VPRAVO_HORE);
                     //ak lopticka leti z prava smerom dolu
                     } else if (this.smerLopticky == SmerLopticky.VLAVO_DOLU) {
-                        this.smerLopticky = SmerLopticky.VLAVO_HORE;
-                        this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+                        this.zmenSmerLopticky(SmerLopticky.VLAVO_HORE);
                     //ak z toho nic neplati, lopticka leti dalej
                     } else {
                         this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
                     }
-                    
                 //ak sa nachadza na obrazovke, je odrazena platformou, tak dalej leti
                 } else {
                     this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
                 }
-                
-                // odraz od kociek
-                for (int i = 0; i < this.stenaTehiel.length; i++) { 
-                    for (int j = 0; j < this.stenaTehiel[i].length; j++) {
+
+                // odraz od tehiel
+                for (Tehla[] riadokTehliel : this.stenaTehiel) {
+                    for (Tehla tehla : riadokTehliel) {
                         // ab. hodnota rozdielu x suradnice lopticky a lavej hornej suradnice tehly
-                        int rozdielLHX = Math.abs(this.lopticka.getLoptickaX() - this.stenaTehiel[i][j].getTehlaX());
+                        int rozdielLHX = Math.abs(this.lopticka.getLoptickaX() - tehla.getTehlaX());
                         // ab. hodnota rozdielu x suradnice lopticky a pravej hornej suradnice tehly
-                        int rozdielPHX = Math.abs(this.lopticka.getLoptickaX() - (this.stenaTehiel[i][j].getTehlaX() + this.stenaTehiel[i][j].getDlzka()));
+                        int rozdielPHX = Math.abs(this.lopticka.getLoptickaX() - (tehla.getTehlaX() + tehla.getDlzka()));
                         // ab. hodnota rozdielu y suradnice lopticky a y suradnice tehly
-                        int rozdielLHY = Math.abs(this.lopticka.getLoptickaY() - this.stenaTehiel[i][j].getTehlaY());
+                        int rozdielLHY = Math.abs(this.lopticka.getLoptickaY() - tehla.getTehlaY());
                         // ab. hodnota rozdielu y suradnice lopticky a y suradnice tehly
-                        int rozdielLDY = Math.abs(this.lopticka.getLoptickaY() - (this.stenaTehiel[i][j].getTehlaY() + this.stenaTehiel[i][j].getVyska()));
-                        
-                        if (rozdielLHX >= 15 && rozdielPHX <= 15 && rozdielLHY >= 15 && rozdielLDY <= 15) {
-                            if (this.smerLopticky == SmerLopticky.VLAVO_HORE ) {
-                                this.stenaTehiel[i][j].zmenFarbu("black");                                
-                                this.stenaTehiel[i][j].setTehlaX(0);
-                                this.stenaTehiel[i][j].setTehlaY(0);
-                                this.smerLopticky = SmerLopticky.VLAVO_DOLU;
-                                this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
-                            } else if (this.smerLopticky == SmerLopticky.VPRAVO_HORE) {
-                                this.stenaTehiel[i][j].zmenFarbu("black");
-                                this.stenaTehiel[i][j].setTehlaX(0);
-                                this.stenaTehiel[i][j].setTehlaY(0);
-                                this.smerLopticky = SmerLopticky.VPRAVO_DOLU;
-                                this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
-                            } else if (this.smerLopticky == SmerLopticky.VLAVO_DOLU) {
-                                this.stenaTehiel[i][j].zmenFarbu("black");
-                                this.stenaTehiel[i][j].setTehlaX(0);
-                                this.stenaTehiel[i][j].setTehlaY(0);
-                                this.smerLopticky =  SmerLopticky.VPRAVO_DOLU;
-                                this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
-                            }  else if (this.smerLopticky == SmerLopticky.VPRAVO_DOLU) {
-                                this.stenaTehiel[i][j].zmenFarbu("black");
-                                this.stenaTehiel[i][j].setTehlaX(0);
-                                this.stenaTehiel[i][j].setTehlaY(0);
-                                this.smerLopticky = SmerLopticky.VLAVO_DOLU;
-                                this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
-                            }  else {
-                                this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+                        int rozdielLDY = Math.abs(this.lopticka.getLoptickaY() - (tehla.getTehlaY() + tehla.getVyska()));
+
+                        if (rozdielLHX >= 12 && rozdielPHX <= 12 && rozdielLHY >= 12 && rozdielLDY <= 12) {
+                            switch (this.smerLopticky) {
+                                case VLAVO_HORE, VPRAVO_DOLU -> {
+                                    tehla.zmenFarbu("black");
+                                    this.pocetTehiel--;
+                                    tehla.setPoloha(0,0);
+                                    this.zmenSmerLopticky(SmerLopticky.VLAVO_DOLU);
+                                }
+                                case VPRAVO_HORE, VLAVO_DOLU -> {
+                                    tehla.zmenFarbu("black");
+                                    this.pocetTehiel--;
+                                    tehla.setPoloha(0,0);
+                                    this.zmenSmerLopticky(SmerLopticky.VPRAVO_DOLU);
+                                }
                             }
                         }
                     }
@@ -205,26 +190,31 @@ public class Hra {
             }
         }
     }
-    
+
+    private void zmenSmerLopticky(SmerLopticky novySmer) {
+        this.smerLopticky = novySmer;
+        this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+    }
+
     public void tak() {
         if (!this.hraBezi) {
             this.start();
         }
         
         // pohyb platformy
-        if (this.hraBezi && this.smer != null) {
+        if (this.hraBezi && this.smerPlatformy != null) {
             if (this.platforma.getPlatformaX() < 0) { // ak narazi do lavej steny
-                this.smer = Smer.VPRAVO;
-                this.platforma.pohniNaNovuPoziciu(this.smer);
+                this.smerPlatformy = SmerPlatformy.VPRAVO;
+                this.platforma.pohniNaNovuPoziciu(this.smerPlatformy);
             } else if (this.platforma.getPlatformaX() > 570) { // ak narazi do pravej steny
-                this.smer =  Smer.VLAVO;
-                this.platforma.pohniNaNovuPoziciu(this.smer);
+                this.smerPlatformy =  SmerPlatformy.VLAVO;
+                this.platforma.pohniNaNovuPoziciu(this.smerPlatformy);
             } else {
-                this.platforma.pohniNaNovuPoziciu(this.smer); //ak sa volne hybe
+                this.platforma.pohniNaNovuPoziciu(this.smerPlatformy); //ak sa volne hybe
             }
         }
     }
-    
+
     public void start() { // metoda ktorou spustis hru, lopticka ide vlavo hore
         if (this.menu == null) {
             this.menu = new StartMenu();

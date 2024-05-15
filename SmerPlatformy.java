@@ -6,7 +6,7 @@
  * @version (version number or date here)
  */
 
-public enum Smer {
+public enum SmerPlatformy {
     HORE (90, 0, -1),
     DOLU (270, 0, 1),
     VPRAVO (180, 1, 0),
@@ -16,7 +16,7 @@ public enum Smer {
     private int vektorX;
     private int vektorY;
     
-    Smer(int uhol, int vektorX, int vektorY) {
+    SmerPlatformy(int uhol, int vektorX, int vektorY) {
         this.uhol = uhol;
         this.vektorX = vektorX;
         this.vektorY = vektorY;
@@ -24,25 +24,5 @@ public enum Smer {
     
     public int getVektorX() {
         return this.vektorX;
-    }
-    
-    public int getVektorY() {
-        return this.vektorY;
-    }
-    
-    public int getUhol() {
-        return this.uhol;
-    }
-    
-    public void setVektorX(int x) {
-        this.vektorX = x;
-    }
-    
-    public void setVektorY(int y) {
-        this.vektorY = y;
-    }
-    
-    public void setUhol(int uhol) {
-        this.uhol = uhol;
     }
 }
