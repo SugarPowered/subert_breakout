@@ -1,4 +1,11 @@
-    public class Poloha {
+
+/**
+ * Write a description of class Menu here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public class Poloha {
     private int x;
     private int y;
     

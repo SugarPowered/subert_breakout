@@ -35,11 +35,7 @@ public abstract class Menu {
     }
     
     public boolean getZapniHru() {
-        return this.zapniHru;
-    }
-    
-    public void setZapniHru(boolean zapni) {
-        this.zapniHru = zapni;
+        return zapniHru;
     }
     
     public void skry() {
@@ -51,5 +47,7 @@ public abstract class Menu {
         this.pozadie.zobraz();
         this.titulnaFotka.zobraz();
     }
+
+    public void vyberSuradnice(int x, int y){}
 
 }

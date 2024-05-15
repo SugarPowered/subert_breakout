@@ -3,10 +3,11 @@ import fri.shapesge.Obdlznik;
 import fri.shapesge.Obrazok;
 
 public class EndMenu extends Menu {
+
     private Obdlznik pozadie;
     private Obrazok titulnaFotka;
-    private Obrazok restartTlacidlo;
-    private Obrazok odistTlacidlo;
+    private Tlacidlo tlacidloRestart;
+    private Tlacidlo tlacidloOdist;
 
     private Manazer manazer;
 
@@ -22,30 +23,39 @@ public class EndMenu extends Menu {
         this.pozadie.zmenFarbu("black");
         this.pozadie.skry();
 
-        this.manazer = new Manazer();
-        this.manazer.spravujObjekt(this);
-        this.zapniHru = false;
-
         this.titulnaFotka = new Obrazok("subert_breakout//img//title.png");
         this.titulnaFotka.posunVodorovne(-100);
         this.titulnaFotka.posunZvisle(-100);
 
-        this.restartTlacidlo = new Obrazok("img/restart.png");
-        this.restartTlacidlo.posunVodorovne(25);
-        this.restartTlacidlo.posunZvisle(170);
-
-        this.odistTlacidlo = new Obrazok("img/odist.png");
-        this.odistTlacidlo.posunVodorovne(265);
-        this.odistTlacidlo.posunZvisle(170);
+        this.tlacidloRestart = new Tlacidlo("Restart");
+        this.tlacidloOdist = new Tlacidlo("Odist");
     }
 
     public void skry() {
-        this.restartTlacidlo.skry();
-        this.odistTlacidlo.skry();
+        super.skry();
+        this.tlacidloRestart.skry();
+        this.tlacidloOdist.skry();
     }
 
     public void zobraz() {
-        this.restartTlacidlo.zobraz();
-        this.odistTlacidlo.zobraz();
+        super.zobraz();
+        this.tlacidloRestart.zobraz();
+        this.tlacidloOdist.zobraz();
+    }
+
+    public void vyberSuradnice(int x, int y) {
+        if (x >= this.tlacidloOdist.getX() && x <= this.tlacidloOdist.getX() + 150 ||
+                y >= this.tlacidloOdist.getY() && y <= this.tlacidloOdist.getY() + 100) {
+
+        }
+
+        if (x >= this.tlacidloRestart.getX() && x <= this.tlacidloRestart.getX() + 150 && // x: <125, 275>
+                y >= this.tlacidloRestart.getY() && y <= this.tlacidloRestart.getY() + 100) { // y: <270, 370>
+            this.zapniHru = true;
+        }
+    }
+
+    public boolean getZapniHru() {
+        return this.zapniHru;
     }
 }

@@ -1,5 +1,12 @@
 import fri.shapesge.Obdlznik;
 
+/**
+ * Write a description of class Menu here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+
 public class Tehla {
     private int dlzka;
     private int vyska;

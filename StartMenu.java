@@ -6,8 +6,8 @@ public class StartMenu extends Menu {
 
     private Obdlznik pozadie;
     private Obrazok titulnaFotka;
-    private Obrazok spustitTlacidlo;
-    private Obrazok odistTlacidlo;
+    private Tlacidlo tlacidloSpustit;
+    private Tlacidlo tlacidloOdist;
 
     private Manazer manazer;
 
@@ -23,33 +23,39 @@ public class StartMenu extends Menu {
         this.pozadie.zmenFarbu("black");
         this.pozadie.skry();
 
-        this.manazer = new Manazer();
-        this.manazer.spravujObjekt(this);
-        this.zapniHru = false;
-
         this.titulnaFotka = new Obrazok("subert_breakout//img//title.png");
         this.titulnaFotka.posunVodorovne(-100);
         this.titulnaFotka.posunZvisle(-100);
 
-        this.spustitTlacidlo = new Obrazok("subert_breakout//img//spustit.png");
-        this.spustitTlacidlo.posunVodorovne(25);
-        this.spustitTlacidlo.posunZvisle(170);
-
-        this.odistTlacidlo = new Obrazok("subert_breakout//img//odist.png");
-        this.odistTlacidlo.posunVodorovne(265);
-        this.odistTlacidlo.posunZvisle(170);
+        this.tlacidloSpustit = new Tlacidlo("Spustit");
+        this.tlacidloOdist = new Tlacidlo("Odist");
     }
 
     public void skry() {
         super.skry();
-        this.spustitTlacidlo.skry();
-        this.odistTlacidlo.skry();
+        this.tlacidloSpustit.skry();
+        this.tlacidloOdist.skry();
     }
 
     public void zobraz() {
         super.zobraz();
-        this.spustitTlacidlo.zobraz();
-        this.odistTlacidlo.zobraz();
+        this.tlacidloSpustit.zobraz();
+        this.tlacidloOdist.zobraz();
     }
 
+    public void vyberSuradnice(int x, int y) {
+        if (x >= this.tlacidloOdist.getX() && x <= this.tlacidloOdist.getX() + 150 ||
+            y >= this.tlacidloOdist.getY() && y <= this.tlacidloOdist.getY() + 100) {
+
+        }
+
+        if (x >= this.tlacidloSpustit.getX() && x <= this.tlacidloSpustit.getX() + 150 && // x: <125, 275>
+                y >= this.tlacidloSpustit.getY() && y <= this.tlacidloSpustit.getY() + 100) { // y: <270, 370>
+            this.zapniHru = true;
+        }
+    }
+
+    public boolean getZapniHru() {
+        return this.zapniHru;
+    }
 }

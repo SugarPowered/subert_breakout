@@ -1,6 +1,13 @@
 import java.util.Random;
 import fri.shapesge.Manazer;
 
+/**
+ * Write a description of class Menu here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+
 public class Hra {
     private int sirkaObrazovky;
     private int vyskaObrazovky;
@@ -18,6 +25,7 @@ public class Hra {
     
     private Manazer manazer;
     private Menu menu;
+
     private int tikCounter;
     private boolean hraBezi;
     private boolean hraPaused;
@@ -47,10 +55,8 @@ public class Hra {
         int dlzkaTehly = 40;
         int vyskaTehly = 30;
         
-        //vykreslovanie tehliciek
-        this.stenaTehiel = new Tehla[vyska][sirka];
-        
         //generovanie tehelnej steny z random farieb
+        this.stenaTehiel = new Tehla[vyska][sirka];
         for (int i = 0; i < this.stenaTehiel.length; i++) { 
             for (int j = 0; j < this.stenaTehiel[i].length; j++) {
                 Random generator = new Random(); // vykreslovanie podla random farieb
@@ -59,7 +65,8 @@ public class Hra {
                 this.stenaTehiel[i][j].zmenCislomFarbu(cisloFarby);
             }
         }
-        
+
+        //incializacia menu a manazera
         this.menu = new StartMenu();
         this.manazer = new Manazer();
         this.manazer.spravujObjekt(this);
@@ -185,8 +192,9 @@ public class Hra {
             // lopticka sa zastavi ak prekroci obrazovku, hra tiez    
             } else if (this.hraBezi) { 
                 this.hraBezi = false;
-                this.blackScreen = new BlackScreen("prehra");
-                this.blackScreen.zobraz();
+                this.menu = new EndMenu();
+//                this.blackScreen = new BlackScreen("prehra");
+//                this.blackScreen.zobraz();
             }
         }
     }
@@ -216,19 +224,17 @@ public class Hra {
         }
 
         if (this.menu.getZapniHru()) {
-            if (this.menu.getZapniHru()) {
-                this.menu.skry();
-                if (!this.hraBezi) {
-                    this.hraBezi = true;
-                    this.smerLopticky = SmerLopticky.VLAVO_HORE;
-                    this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
-                }
+            this.menu.skry();
+            if (!this.hraBezi) {
+                this.hraBezi = true;
+                this.smerLopticky = SmerLopticky.VLAVO_HORE;
+                this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
             }
         } else {
             this.menu.zobraz();
         }
     }
-    
+
     public void zrus() { // pause trigger ESC Key
         if (this.hraBezi) {
             this.hraBezi = false;
@@ -237,12 +243,22 @@ public class Hra {
             this.blackScreen.zobraz();
         }
     }
-    
+
     public void aktivuj() { //unpause trigger Space Key
         if (this.hraPaused) {
             this.hraBezi = true;
             this.hraPaused = false;
             this.blackScreen.skry();
+        }
+    }
+
+    public void vyberSuradnice(int x, int y) { // myska kliknutim vyberie suradnice
+        if (!this.hraBezi) {
+            this.menu.vyberSuradnice(x, y);
+            if (this.menu.getZapniHru()) {
+                this.start();
+                this.hraBezi = true;
+            }
         }
     }
 }
