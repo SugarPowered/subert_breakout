@@ -1,3 +1,5 @@
+package gui;
+
 import fri.shapesge.Obdlznik;
 import fri.shapesge.Obrazok;
 import fri.shapesge.Manazer;
@@ -9,12 +11,14 @@ import fri.shapesge.Manazer;
  * @version (a version number or a date)
  */
 public abstract class Menu {
-    private Obdlznik pozadie;
-    
-    private Manazer manazer;
+    private final Obdlznik pozadie;
+
+    private final Manazer manazer;
 
     private Obrazok titulnaFotka;
     private boolean zapniHru;
+
+    private boolean restartuj;
     
     /**
      * Constructor for objects of class Menu
@@ -23,6 +27,7 @@ public abstract class Menu {
         this.manazer = new Manazer();
         this.manazer.spravujObjekt(this);
         this.zapniHru = false;
+        this.restartuj = false;
        
         this.pozadie = new Obdlznik(0, 0);
         this.pozadie.zmenStrany(640, 480);
@@ -37,6 +42,10 @@ public abstract class Menu {
     public boolean getZapniHru() {
         return zapniHru;
     }
+
+    public boolean getRestartuj() {
+        return restartuj;
+    }
     
     public void skry() {
         this.pozadie.skry();
@@ -49,5 +58,4 @@ public abstract class Menu {
     }
 
     public void vyberSuradnice(int x, int y){}
-
 }

@@ -1,5 +1,9 @@
 import java.util.Random;
 import fri.shapesge.Manazer;
+import gui.BlackScreen;
+import gui.EndMenu;
+import gui.Menu;
+import gui.StartMenu;
 
 /**
  * Write a description of class Menu here.
@@ -85,6 +89,7 @@ public class Hra {
         if (!this.hraBezi) {
             this.start();
         }
+
         // pohyb lopticky
         if (this.hraBezi && this.smerLopticky != null) {
             // je lopticka na obrazovke? 640 x 480
@@ -127,7 +132,7 @@ public class Hra {
                 // odraz od platformy    
                 } else if ((this.lopticka.getLoptickaY() >= 415 && this.lopticka.getLoptickaY() <= 430 )
                         && (this.lopticka.getLoptickaX() >= this.platforma.getPlatformaX()) 
-                            && (this.lopticka.getLoptickaX() <= this.platforma.getPlatformaX() + this.platforma.DLZKA)) {
+                            && (this.lopticka.getLoptickaX() <= this.platforma.getPlatformaX() + Platforma.DLZKA)) {
                     //ak lopticka leti z lava smerom dole
                     if (this.smerLopticky == SmerLopticky.VPRAVO_DOLU) {
                         this.smerLopticky = SmerLopticky.VPRAVO_HORE;
@@ -193,8 +198,10 @@ public class Hra {
             } else if (this.hraBezi) { 
                 this.hraBezi = false;
                 this.menu = new EndMenu();
-//                this.blackScreen = new BlackScreen("prehra");
-//                this.blackScreen.zobraz();
+
+                if (this.menu.getRestartuj()) {
+                    this.hraBezi = true;
+                }
             }
         }
     }
@@ -247,7 +254,6 @@ public class Hra {
     public void aktivuj() { //unpause trigger Space Key
         if (this.hraPaused) {
             this.hraBezi = true;
-            this.hraPaused = false;
             this.blackScreen.skry();
         }
     }
@@ -258,6 +264,11 @@ public class Hra {
             if (this.menu.getZapniHru()) {
                 this.start();
                 this.hraBezi = true;
+            }
+
+            if (this.menu.getRestartuj()) {
+                this.hraBezi = true;
+                this.menu.skry();
             }
         }
     }

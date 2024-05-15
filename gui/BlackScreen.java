@@ -1,3 +1,5 @@
+package gui;
+
 import fri.shapesge.Obdlznik;
 import fri.shapesge.TextBlock;
 

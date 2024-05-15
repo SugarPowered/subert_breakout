@@ -1,3 +1,4 @@
+package gui;
 import fri.shapesge.Obrazok;
 
 /**
@@ -16,10 +17,10 @@ public class Tlacidlo {
     public Tlacidlo(String typ) {
         if (typ.equals("Odist")) {
             this.obrazok = new Obrazok("subert_breakout//img//odist.png");
-            this.obrazok.posunVodorovne(265);
-            this.obrazok.posunZvisle(170);
             this.x = 365;
             this.y = 270;
+            this.obrazok.posunVodorovne(265);
+            this.obrazok.posunZvisle(170);
         }
         if (typ.equals("Spustit")) {
             this.obrazok = new Obrazok("subert_breakout//img//spustit.png");
