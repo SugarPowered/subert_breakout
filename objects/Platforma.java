@@ -1,22 +1,24 @@
+package objects;
+
 import fri.shapesge.Obdlznik;
+import objects.sub.Poloha;
+import objects.sub.SmerPlatformy;
 
 public class Platforma {
     public static final int DLZKA = 90;
     public static final int VYSKA = 10;
-    
-    private String farba; 
-    
-    private Poloha poloha; 
-    private Obdlznik obdlznik; // shapesGE default x = 60, y = 50
+
+    private final Poloha poloha;
+    private final Obdlznik obdlznik; // shapesGE default x = 60, y = 50
     
     public Platforma(Poloha poloha) {
         this.obdlznik = new Obdlznik(0, 0);
-        this.obdlznik.zmenStrany(this.DLZKA, this.VYSKA);
+        this.obdlznik.zmenStrany(DLZKA, VYSKA);
         this.obdlznik.zmenFarbu("red");
         
         this.obdlznik.posunVodorovne(poloha.getX());
         this.obdlznik.posunZvisle(poloha.getY());
-        
+
         this.obdlznik.zobraz();
         
         this.poloha = new Poloha(poloha.getX(), poloha.getY()); // priradenie polohy
@@ -57,6 +59,5 @@ public class Platforma {
     }
     
     public void zmenFarbu(String farba) {
-        this.farba = farba;
     }
 }

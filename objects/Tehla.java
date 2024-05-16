@@ -1,4 +1,7 @@
+package objects;
+
 import fri.shapesge.Obdlznik;
+import objects.sub.Poloha;
 
 /**
  * Write a description of class Menu here.

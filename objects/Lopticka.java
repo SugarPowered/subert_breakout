@@ -1,4 +1,8 @@
+package objects;
+
 import fri.shapesge.Kruh;
+import objects.sub.Poloha;
+import objects.sub.SmerLopticky;
 
 public class Lopticka {
     private int priemer = 15;

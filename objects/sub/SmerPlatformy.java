@@ -1,3 +1,4 @@
+package objects.sub;
 
 /**
  * Enumeration class Smer - write a description of the enum class here

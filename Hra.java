@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Random;
 import fri.shapesge.Manazer;
 import fri.shapesge.TextBlock;
@@ -5,6 +6,12 @@ import gui.BlackScreen;
 import gui.EndMenu;
 import gui.Menu;
 import gui.StartMenu;
+import objects.*;
+import objects.sub.Poloha;
+import objects.sub.SmerLopticky;
+import objects.sub.SmerPlatformy;
+
+import javax.swing.*;
 
 /**
  * Write a description of class Menu here.
@@ -13,19 +20,18 @@ import gui.StartMenu;
  * @version (a version number or a date)
  */
 
-public class Hra {
+public class Hra extends Component {
     private final int sirkaObrazovky;
     private final int vyskaObrazovky;
 
-    private SmerPlatformy smerPlatformy; // Smer Platformy
+    private SmerPlatformy smerPlatformy;
     private SmerLopticky smerLopticky;
     
     private final Platforma platforma;
     private final Lopticka lopticka;
-    private Tehla tehla;
-    private BlackScreen blackScreen;
     private final Tehla[][] stenaTehiel;
-    private int pocetTehiel;
+
+    private Pocitadlo pocitadlo;
     
     private final Manazer manazer;
     private Menu menu;
@@ -54,7 +60,6 @@ public class Hra {
         int vyska = 7;
         int sirka = 14;
 
-        
         // dlzka a sirka jednej tehly   
         int dlzkaTehly = 40;
         int vyskaTehly = 30;
@@ -71,16 +76,13 @@ public class Hra {
         }
 
         // pocitadlo rozbitych tehiel
-        this.pocetTehiel = vyska * sirka;
-        int celkovyPocetTehiel = vyska * sirka;
-        TextBlock pocitadlo = new TextBlock(this.pocetTehiel + "/" + celkovyPocetTehiel, 600, 20);
-        pocitadlo.changeColor("white");
-        pocitadlo.makeVisible();
+        this.pocitadlo = new Pocitadlo(vyska*sirka);
 
         //incializacia menu a manazera
         this.menu = new StartMenu();
         this.manazer = new Manazer();
         this.manazer.spravujObjekt(this);
+
         this.hraPaused = false;
     }
     
@@ -142,11 +144,11 @@ public class Hra {
                         this.zmenSmerLopticky(SmerLopticky.VLAVO_HORE);
                     //ak z toho nic neplati, lopticka leti dalej
                     } else {
-                        this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+                        this.zmenSmerLopticky(this.smerLopticky);
                     }
                 //ak sa nachadza na obrazovke, je odrazena platformou, tak dalej leti
                 } else {
-                    this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+                    this.zmenSmerLopticky(this.smerLopticky);
                 }
 
                 // odraz od tehiel
@@ -165,13 +167,13 @@ public class Hra {
                             switch (this.smerLopticky) {
                                 case VLAVO_HORE, VPRAVO_DOLU -> {
                                     tehla.zmenFarbu("black");
-                                    this.pocetTehiel--;
+                                    this.pocitadlo.updateSkore();
                                     tehla.setPoloha(0,0);
                                     this.zmenSmerLopticky(SmerLopticky.VLAVO_DOLU);
                                 }
                                 case VPRAVO_HORE, VLAVO_DOLU -> {
                                     tehla.zmenFarbu("black");
-                                    this.pocetTehiel--;
+                                    this.pocitadlo.updateSkore();
                                     tehla.setPoloha(0,0);
                                     this.zmenSmerLopticky(SmerLopticky.VPRAVO_DOLU);
                                 }
@@ -183,17 +185,8 @@ public class Hra {
             } else if (this.hraBezi) { 
                 this.hraBezi = false;
                 this.menu = new EndMenu();
-
-                if (this.menu.getRestartuj()) {
-                    this.hraBezi = true;
-                }
             }
         }
-    }
-
-    private void zmenSmerLopticky(SmerLopticky novySmer) {
-        this.smerLopticky = novySmer;
-        this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
     }
 
     public void tak() {
@@ -204,13 +197,11 @@ public class Hra {
         // pohyb platformy
         if (this.hraBezi && this.smerPlatformy != null) {
             if (this.platforma.getPlatformaX() < 0) { // ak narazi do lavej steny
-                this.smerPlatformy = SmerPlatformy.VPRAVO;
-                this.platforma.pohniNaNovuPoziciu(this.smerPlatformy);
+                this.zmenSmerPlatformy(SmerPlatformy.VPRAVO);
             } else if (this.platforma.getPlatformaX() > 570) { // ak narazi do pravej steny
-                this.smerPlatformy =  SmerPlatformy.VLAVO;
-                this.platforma.pohniNaNovuPoziciu(this.smerPlatformy);
+                this.zmenSmerPlatformy(SmerPlatformy.VLAVO);
             } else {
-                this.platforma.pohniNaNovuPoziciu(this.smerPlatformy); //ak sa volne hybe
+                this.zmenSmerPlatformy(this.smerPlatformy);
             }
         }
     }
@@ -224,29 +215,33 @@ public class Hra {
             this.menu.skry();
             if (!this.hraBezi) {
                 this.hraBezi = true;
-                this.smerLopticky = SmerLopticky.VLAVO_HORE;
-                this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+                this.zmenSmerLopticky(SmerLopticky.VLAVO_HORE);
             }
+
         } else {
             this.menu.zobraz();
         }
     }
 
-    public void zrus() { // pause trigger ESC Key
-        if (this.hraBezi) {
-            this.hraBezi = false;
-            this.hraPaused = true;
-            this.blackScreen = new BlackScreen("pauza");
-            this.blackScreen.zobraz();
-        }
-    }
 
-    public void aktivuj() { //unpause trigger Space Key
-        if (this.hraPaused) {
-            this.hraBezi = true;
-            this.blackScreen.skry();
-        }
-    }
+//    public void zrus() { // pause trigger ESC Key
+//        if (this.hraBezi) {
+//            this.hraBezi = false;
+//            this.hraPaused = true;
+//            this.manazer.prestanSpravovatObjekt(this);
+//            this.blackScreen = new BlackScreen("pauza");
+//            this.blackScreen.zobraz();
+//        }
+//    }
+////
+//    public void aktivuj() { //unpause trigger Space Key
+//        if (this.hraPaused) {
+//            this.blackScreen.skry();
+//            this.hraPaused = false;
+//            this.manazer.spravujObjekt(this);
+//            this.hraBezi = true;
+//        }
+//    }
 
     public void vyberSuradnice(int x, int y) { // myska kliknutim vyberie suradnice
         if (!this.hraBezi) {
@@ -261,5 +256,15 @@ public class Hra {
                 this.menu.skry();
             }
         }
+    }
+
+    private void zmenSmerLopticky(SmerLopticky novySmer) {
+        this.smerLopticky = novySmer;
+        this.lopticka.pohniNaNovuPoziciu(this.smerLopticky);
+    }
+
+    private void zmenSmerPlatformy(SmerPlatformy novySmer) {
+        this.smerPlatformy = novySmer;
+        this.platforma.pohniNaNovuPoziciu(this.smerPlatformy);
     }
 }

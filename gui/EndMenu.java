@@ -1,14 +1,8 @@
 package gui;
 
-import fri.shapesge.Manazer;
-import fri.shapesge.Obdlznik;
-import fri.shapesge.Obrazok;
-
 public class EndMenu extends Menu {
 
-    private Obdlznik pozadie;
-    private Obrazok titulnaFotka;
-    private Tlacidlo tlacidloRestart;
+    private Tlacidlo tlacidloSkore;
     private Tlacidlo tlacidloOdist;
 
     private boolean zapniHru;
@@ -18,19 +12,19 @@ public class EndMenu extends Menu {
     public EndMenu() {
         super();
 
-        this.tlacidloRestart = new Tlacidlo("Restart");
+        this.tlacidloSkore = new Tlacidlo("Skore");
         this.tlacidloOdist = new Tlacidlo("Odist");
     }
 
     public void skry() {
         super.skry();
-        this.tlacidloRestart.skry();
+        this.tlacidloSkore.skry();
         this.tlacidloOdist.skry();
     }
 
     public void zobraz() {
         super.zobraz();
-        this.tlacidloRestart.zobraz();
+        this.tlacidloSkore.zobraz();
         this.tlacidloOdist.zobraz();
     }
 
@@ -40,9 +34,9 @@ public class EndMenu extends Menu {
             System.exit(0);
         }
 
-        if (x >= this.tlacidloRestart.getX() && x <= this.tlacidloRestart.getX() + 150 && // x: <125, 275>
-                y >= this.tlacidloRestart.getY() && y <= this.tlacidloRestart.getY() + 100) { // y: <270, 370>
-            this.zapniHru = true;
+        if (x >= this.tlacidloSkore.getX() && x <= this.tlacidloSkore.getX() + 150 && // x: <125, 275>
+                y >= this.tlacidloSkore.getY() && y <= this.tlacidloSkore.getY() + 100) { // y: <270, 370>
+
         }
     }
 

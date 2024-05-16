@@ -29,8 +29,8 @@ public class Tlacidlo {
             this.obrazok.posunVodorovne(25);
             this.obrazok.posunZvisle(170);
         }
-        if (typ.equals("Restart")) {
-            this.obrazok = new Obrazok("subert_breakout//img//restart.png");
+        if (typ.equals("Skore")) {
+            this.obrazok = new Obrazok("subert_breakout//img//skore.png");
             this.x = 125;
             this.y = 270;
             this.obrazok.posunVodorovne(25);
