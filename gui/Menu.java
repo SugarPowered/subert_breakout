@@ -18,7 +18,6 @@ public abstract class Menu {
     private Obrazok titulnaFotka;
     private boolean zapniHru;
 
-    private boolean restartuj;
     
     /**
      * Constructor for objects of class Menu
@@ -27,24 +26,19 @@ public abstract class Menu {
         this.manazer = new Manazer();
         this.manazer.spravujObjekt(this);
         this.zapniHru = false;
-        this.restartuj = false;
        
         this.pozadie = new Obdlznik(0, 0);
         this.pozadie.zmenStrany(640, 480);
         this.pozadie.zmenFarbu("black");
         this.pozadie.skry();
 
-        this.titulnaFotka = new Obrazok("subert_breakout//img//title.png");
+        this.titulnaFotka = new Obrazok("src//img//title.png");
         this.titulnaFotka.posunVodorovne(-100);
         this.titulnaFotka.posunZvisle(-100);
     }
     
     public boolean getZapniHru() {
         return zapniHru;
-    }
-
-    public boolean getRestartuj() {
-        return restartuj;
     }
     
     public void skry() {

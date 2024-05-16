@@ -11,17 +11,16 @@ import java.awt.Font;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class BlackScreen {
+public class PauseMenu extends Menu {
     
     /**
      * Constructor for objects of class BlackScreen
      */
-    private Font font;
     private Obdlznik obdlznik;
     private TextBlock nadpis;
     private TextBlock podnadpis;
     
-    public BlackScreen(String stavHry) {
+    public PauseMenu(String stavHry) {
         this.obdlznik = new Obdlznik(0, 0);
         this.obdlznik.zmenStrany(640, 480);
         this.obdlznik.zmenFarbu("black");

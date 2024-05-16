@@ -1,5 +1,10 @@
 package gui;
 
+import javax.swing.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class EndMenu extends Menu {
 
     private Tlacidlo tlacidloSkore;
@@ -7,10 +12,23 @@ public class EndMenu extends Menu {
 
     private boolean zapniHru;
 
-    private boolean restartuj;
+    private int skore;
+
+    private int celkoveSkore;
+
 
     public EndMenu() {
         super();
+
+        this.tlacidloSkore = new Tlacidlo("Skore");
+        this.tlacidloOdist = new Tlacidlo("Odist");
+    }
+
+    public EndMenu(int skore, int celkoveSkore) {
+        super();
+
+        this.skore = skore;
+        this.celkoveSkore = celkoveSkore;
 
         this.tlacidloSkore = new Tlacidlo("Skore");
         this.tlacidloOdist = new Tlacidlo("Odist");
@@ -36,15 +54,11 @@ public class EndMenu extends Menu {
 
         if (x >= this.tlacidloSkore.getX() && x <= this.tlacidloSkore.getX() + 150 && // x: <125, 275>
                 y >= this.tlacidloSkore.getY() && y <= this.tlacidloSkore.getY() + 100) { // y: <270, 370>
-
+            JOptionPane.showMessageDialog(null, "Tvoje skore je " + skore + "/" + celkoveSkore);
         }
     }
 
     public boolean getZapniHru() {
         return this.zapniHru;
-    }
-
-    public boolean getRestartuj() {
-        return this.restartuj;
     }
 }

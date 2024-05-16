@@ -31,6 +31,10 @@ public class Pocitadlo {
     public int getSkore() {
         return this.skore;
     }
+
+    public int getCelkoveSkore() {
+        return this.celkovyPocetTehiel;
+    }
 }
 
 

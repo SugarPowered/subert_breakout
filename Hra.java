@@ -1,8 +1,7 @@
 import java.awt.*;
 import java.util.Random;
 import fri.shapesge.Manazer;
-import fri.shapesge.TextBlock;
-import gui.BlackScreen;
+import gui.PauseMenu;
 import gui.EndMenu;
 import gui.Menu;
 import gui.StartMenu;
@@ -10,8 +9,6 @@ import objects.*;
 import objects.sub.Poloha;
 import objects.sub.SmerLopticky;
 import objects.sub.SmerPlatformy;
-
-import javax.swing.*;
 
 /**
  * Write a description of class Menu here.
@@ -32,6 +29,8 @@ public class Hra extends Component {
     private final Tehla[][] stenaTehiel;
 
     private Pocitadlo pocitadlo;
+
+    private PauseMenu blackScreen;
     
     private final Manazer manazer;
     private Menu menu;
@@ -184,7 +183,7 @@ public class Hra extends Component {
             // lopticka sa zastavi ak prekroci obrazovku, hra tiez    
             } else if (this.hraBezi) { 
                 this.hraBezi = false;
-                this.menu = new EndMenu();
+                this.menu = new EndMenu(pocitadlo.getSkore(), pocitadlo.getCelkoveSkore());
             }
         }
     }
@@ -224,24 +223,23 @@ public class Hra extends Component {
     }
 
 
-//    public void zrus() { // pause trigger ESC Key
-//        if (this.hraBezi) {
-//            this.hraBezi = false;
-//            this.hraPaused = true;
-//            this.manazer.prestanSpravovatObjekt(this);
-//            this.blackScreen = new BlackScreen("pauza");
-//            this.blackScreen.zobraz();
-//        }
-//    }
+    public void zrus() { // pause trigger ESC Key
+        if (this.hraBezi) {
+            this.hraBezi = false;
+            this.hraPaused = true;
+            this.blackScreen = new PauseMenu("pauza");
+            this.blackScreen.zobraz();
+        }
+    }
 ////
-//    public void aktivuj() { //unpause trigger Space Key
-//        if (this.hraPaused) {
-//            this.blackScreen.skry();
-//            this.hraPaused = false;
-//            this.manazer.spravujObjekt(this);
-//            this.hraBezi = true;
-//        }
-//    }
+    public void aktivuj() { //unpause trigger Space Key
+        if (this.hraPaused) {
+            this.blackScreen.skry();
+            this.hraPaused = false;
+            this.manazer.spravujObjekt(this);
+            this.hraBezi = true;
+        }
+    }
 
     public void vyberSuradnice(int x, int y) { // myska kliknutim vyberie suradnice
         if (!this.hraBezi) {
@@ -249,11 +247,6 @@ public class Hra extends Component {
             if (this.menu.getZapniHru()) {
                 this.start();
                 this.hraBezi = true;
-            }
-
-            if (this.menu.getRestartuj()) {
-                this.hraBezi = true;
-                this.menu.skry();
             }
         }
     }

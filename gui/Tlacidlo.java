@@ -16,21 +16,21 @@ public class Tlacidlo {
 
     public Tlacidlo(String typ) {
         if (typ.equals("Odist")) {
-            this.obrazok = new Obrazok("subert_breakout//img//odist.png");
+            this.obrazok = new Obrazok("src//img//odist.png");
             this.x = 365;
             this.y = 270;
             this.obrazok.posunVodorovne(265);
             this.obrazok.posunZvisle(170);
         }
         if (typ.equals("Spustit")) {
-            this.obrazok = new Obrazok("subert_breakout//img//spustit.png");
+            this.obrazok = new Obrazok("src//img//spustit.png");
             this.x = 125;
             this.y = 270;
             this.obrazok.posunVodorovne(25);
             this.obrazok.posunZvisle(170);
         }
         if (typ.equals("Skore")) {
-            this.obrazok = new Obrazok("subert_breakout//img//skore.png");
+            this.obrazok = new Obrazok("src//img//skore.png");
             this.x = 125;
             this.y = 270;
             this.obrazok.posunVodorovne(25);
