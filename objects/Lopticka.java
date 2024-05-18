@@ -4,6 +4,8 @@ import fri.shapesge.Kruh;
 import objects.sub.Poloha;
 import objects.sub.SmerLopticky;
 
+// TODO: Napisat dokumentacny komentar Lopticka
+
 public class Lopticka {
     private int priemer = 15;
     

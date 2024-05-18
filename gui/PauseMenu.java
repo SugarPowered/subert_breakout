@@ -1,9 +1,12 @@
 package gui;
 
 import fri.shapesge.Obdlznik;
+import fri.shapesge.Obrazok;
 import fri.shapesge.TextBlock;
 
 import java.awt.Font;
+
+// TODO: Napisat dokumentacny komentar PauseMenu
 
 /**
  * Write a description of class BlackScreen here.
@@ -12,45 +15,41 @@ import java.awt.Font;
  * @version (a version number or a date)
  */
 public class PauseMenu extends Menu {
-    
+
+    private final int skore;
+    private final int celkoveSkore;
     /**
      * Constructor for objects of class BlackScreen
      */
-    private Obdlznik obdlznik;
-    private TextBlock nadpis;
-    private TextBlock podnadpis;
+    private final TextBlock nadpis;
+
+    private final Obdlznik pozadie;
     
-    public PauseMenu(String stavHry) {
-        this.obdlznik = new Obdlznik(0, 0);
-        this.obdlznik.zmenStrany(640, 480);
-        this.obdlznik.zmenFarbu("black");
-        
-        this.podnadpis = null;
-        if (stavHry.equals("pauza")) {
-            this.nadpis = new TextBlock("Pauza", 300, 220);
-            this.nadpis.changeColor("white");
-            
-            this.podnadpis = new TextBlock("Stlac MEZDERNIK a hraj dalej", 245, 245);
-            this.podnadpis.changeColor("white");
-        } else if (stavHry.equals("prehra")) {
-            this.nadpis = new TextBlock("Smola :(", 300, 220);
-            this.nadpis.changeColor("white");
-            
-            this.podnadpis = new TextBlock("neboj sa, vyjde to nabuduce!", 255, 245);
-            this.podnadpis.changeColor("white");
-            
-        } 
+    public PauseMenu(int skore, int celkoveSkore) {
+
+        this.skore = skore;
+        this.celkoveSkore = celkoveSkore;
+
+        this.pozadie = new Obdlznik(0, 0);
+        this.pozadie.zmenStrany(640, 240);
+        this.pozadie.zmenFarbu("black");
+        this.pozadie.skry();
+
+        this.nadpis = new TextBlock("PAUZA - Stlac MEZDERNIK a hraj dalej \n Zatial mas skore: " + this.skore + " / " + this.celkoveSkore + " Let's go!" , 225, 250);
+        this.nadpis.changeColor("white");
+        // TODO: preskumat Font a fontstyle
+
     }
     
     public void skry() {
-        this.obdlznik.skry();
+        this.pozadie.skry();
+        this.getTitulnaFotka().skry();
         this.nadpis.makeInvisible();
-        this.podnadpis.makeInvisible();
     }
     
     public void zobraz() {
-        this.obdlznik.zobraz();
+        this.pozadie.zobraz();
+        this.getTitulnaFotka().zobraz();
         this.nadpis.makeVisible();
-        this.podnadpis.makeVisible();
     }
 }

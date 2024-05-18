@@ -1,6 +1,8 @@
 package gui;
 import fri.shapesge.Obrazok;
 
+// TODO: Napisat dokumentacny komentar Tlacidlo
+
 /**
  * Write a description of class Menu here.
  *
@@ -29,8 +31,8 @@ public class Tlacidlo {
             this.obrazok.posunVodorovne(25);
             this.obrazok.posunZvisle(170);
         }
-        if (typ.equals("Skore")) {
-            this.obrazok = new Obrazok("src//img//skore.png");
+        if (typ.equals("ZapisSkore")) {
+            this.obrazok = new Obrazok("src//img//zapis_skore.png");
             this.x = 125;
             this.y = 270;
             this.obrazok.posunVodorovne(25);

@@ -10,6 +10,8 @@ import objects.sub.Poloha;
 import objects.sub.SmerLopticky;
 import objects.sub.SmerPlatformy;
 
+// TODO: Napisat dokumentacny komentar Hra
+
 /**
  * Write a description of class Menu here.
  *
@@ -180,7 +182,7 @@ public class Hra extends Component {
                         }
                     }
                 }
-            // lopticka sa zastavi ak prekroci obrazovku, hra tiez    
+            // lopticka sa zastavi ak prekroci obrazovku, hra tiez
             } else if (this.hraBezi) { 
                 this.hraBezi = false;
                 this.menu = new EndMenu(pocitadlo.getSkore(), pocitadlo.getCelkoveSkore());
@@ -189,10 +191,6 @@ public class Hra extends Component {
     }
 
     public void tak() {
-        if (!this.hraBezi) {
-            this.start();
-        }
-        
         // pohyb platformy
         if (this.hraBezi && this.smerPlatformy != null) {
             if (this.platforma.getPlatformaX() < 0) { // ak narazi do lavej steny
@@ -223,31 +221,27 @@ public class Hra extends Component {
     }
 
 
+    // TODO: fixnut zrus/aktivuj aby stopli hru
     public void zrus() { // pause trigger ESC Key
         if (this.hraBezi) {
             this.hraBezi = false;
             this.hraPaused = true;
-            this.blackScreen = new PauseMenu("pauza");
-            this.blackScreen.zobraz();
+            this.menu = new PauseMenu(this.pocitadlo.getSkore(), this.pocitadlo.getCelkoveSkore());
+            this.menu.zobraz();
         }
     }
-////
+
     public void aktivuj() { //unpause trigger Space Key
         if (this.hraPaused) {
-            this.blackScreen.skry();
+            this.menu.skry();
             this.hraPaused = false;
-            this.manazer.spravujObjekt(this);
             this.hraBezi = true;
         }
     }
 
     public void vyberSuradnice(int x, int y) { // myska kliknutim vyberie suradnice
         if (!this.hraBezi) {
-            this.menu.vyberSuradnice(x, y);
-            if (this.menu.getZapniHru()) {
-                this.start();
-                this.hraBezi = true;
-            }
+            this.menu.vyberSuradnice(x, y); // TODO: zistit kde je problem s dvojtym zavolanim vyberSuradnice()
         }
     }
 

@@ -1,4 +1,7 @@
 
+// TODO: Napisat dokumentacny komentar Main
+// TODO: Optimalizovat pre checkstyle
+
 /**
  * Write a description of class Main here.
  * 

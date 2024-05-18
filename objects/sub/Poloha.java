@@ -1,5 +1,7 @@
 package objects.sub;
 
+// TODO: Napisat dokumentacny komentar Poloha
+
 /**
  * Write a description of class Menu here.
  *

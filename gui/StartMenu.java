@@ -4,6 +4,8 @@ import fri.shapesge.Manazer;
 import fri.shapesge.Obdlznik;
 import fri.shapesge.Obrazok;
 
+// TODO: Napisat dokumentacny komentar StartMenu
+
 public class StartMenu extends Menu {
 
     private Obdlznik pozadie;
@@ -17,6 +19,7 @@ public class StartMenu extends Menu {
 
     public StartMenu() {
         super();
+
         this.tlacidloSpustit = new Tlacidlo("Spustit");
         this.tlacidloOdist = new Tlacidlo("Odist");
     }

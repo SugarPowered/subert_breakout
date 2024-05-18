@@ -3,6 +3,8 @@ package objects;
 import fri.shapesge.Obdlznik;
 import objects.sub.Poloha;
 
+// TODO: Napisat dokumentacny komentar Tehla
+
 /**
  * Write a description of class Menu here.
  *

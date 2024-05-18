@@ -2,6 +2,8 @@ package objects;
 
 import fri.shapesge.TextBlock;
 
+// TODO: Napisat dokumentacny komentar Pocitadlo
+
 public class Pocitadlo {
 
     private int skore;

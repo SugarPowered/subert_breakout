@@ -4,6 +4,8 @@ import fri.shapesge.Obdlznik;
 import objects.sub.Poloha;
 import objects.sub.SmerPlatformy;
 
+// TODO: Napisat dokumentacny komentar Platforma
+
 public class Platforma {
     public static final int DLZKA = 90;
     public static final int VYSKA = 10;

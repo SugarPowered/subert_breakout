@@ -1,5 +1,7 @@
 package objects.sub;
 
+// TODO: Napisat dokumentacny komentar SmerLopticky
+
 /**
  * Enumeration class Smer - write a description of the enum class here
  * 

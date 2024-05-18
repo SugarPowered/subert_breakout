@@ -4,6 +4,8 @@ import fri.shapesge.Obdlznik;
 import fri.shapesge.Obrazok;
 import fri.shapesge.Manazer;
 
+// TODO: Napisat dokumentacny komentar Menu
+
 /**
  * Write a description of class Menu here.
  * 
@@ -52,4 +54,8 @@ public abstract class Menu {
     }
 
     public void vyberSuradnice(int x, int y){}
+
+    public Obrazok getTitulnaFotka() {
+        return this.titulnaFotka;
+    }
 }
