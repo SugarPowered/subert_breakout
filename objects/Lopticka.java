@@ -7,14 +7,15 @@ import objects.sub.SmerLopticky;
 // TODO: Napisat dokumentacny komentar Lopticka
 
 public class Lopticka {
-    private int priemer = 15;
-    
-    private Kruh kruh; // shapesGE default x = 20, y = 60
+
+    private final Kruh kruh; // shapesGE default x = 20, y = 60
     private Poloha poloha;
     
     public Lopticka(Poloha poloha) {
+        int priemer = 15;
+
         this.kruh = new Kruh(0, 0);
-        this.kruh.zmenPriemer(this.priemer);
+        this.kruh.zmenPriemer(priemer);
         this.kruh.zobraz();
             
         this.kruh.posunVodorovne(poloha.getX());
@@ -45,33 +46,5 @@ public class Lopticka {
             case VPRAVO_HORE -> new Poloha(1, -1);
             case VPRAVO_DOLU -> new Poloha(1, 1);
         };
-    }
-
-    // Metody pre pripadne pouzitie: TODO: vycistit
-
-    public Poloha getPoloha() {
-        return this.poloha;
-    }
-
-    public void setPoloha(Poloha poloha) {
-        //vyresetuj povodnu polohu na platne
-        this.kruh.posunVodorovne(-this.poloha.getX());
-        this.kruh.posunZvisle(-this.poloha.getY());
-        
-        //posun o zadanu polohu na platne
-        this.kruh.posunVodorovne(poloha.getX());
-        this.kruh.posunZvisle(poloha.getY());
-        
-        //setnutie novej polohy, ktora je zadana
-        this.poloha.setX(poloha.getX());
-        this.poloha.setY(poloha.getY());
-    }
-    
-    public void zobraz() {
-        this.kruh.zobraz();
-    }
-    
-    public void zmenPriemer(int novyPriemer) {
-        this.kruh.zmenPriemer(novyPriemer);
     }
 }

@@ -23,7 +23,7 @@ public class EndMenu extends Menu {
 
     private final int celkoveSkore;
 
-    private final TextBlock skoreBlok;
+    private final TextBlock textBlock;
 
     public EndMenu(int skore, int celkoveSkore) {
         super();
@@ -34,8 +34,13 @@ public class EndMenu extends Menu {
         this.tlacidloZapisSkore = new Tlacidlo("ZapisSkore");
         this.tlacidloOdist = new Tlacidlo("Odist");
 
-        this.skoreBlok = new TextBlock("Nevadí! Dosiahol si skore: " + skore + " / " + celkoveSkore, 250, 220);
-        this.skoreBlok.changeColor("white");
+        if (skore != 0) {
+            this.textBlock = new TextBlock("Nevadí! Dosiahol si skore: " + skore + " / " + celkoveSkore, 250, 220);
+            this.textBlock.changeColor("white");
+        } else {
+            this.textBlock = new TextBlock("GRATULUJEM! Vyhral si!", 250, 220);
+            this.textBlock.changeColor("white");
+        }
 
     }
 
@@ -43,24 +48,22 @@ public class EndMenu extends Menu {
         super.skry();
         this.tlacidloZapisSkore.skry();
         this.tlacidloOdist.skry();
-        this.skoreBlok.makeInvisible();
+        this.textBlock.makeInvisible();
     }
 
     public void zobraz() {
         super.zobraz();
         this.tlacidloZapisSkore.zobraz();
         this.tlacidloOdist.zobraz();
-        this.skoreBlok.makeVisible();
+        this.textBlock.makeVisible();
     }
 
     public void vyberSuradnice(int x, int y) {
-        if (x >= this.tlacidloOdist.getX() && x <= this.tlacidloOdist.getX() + 150 &&
-                y >= this.tlacidloOdist.getY() && y <= this.tlacidloOdist.getY() + 100) {
+        if (klikNaTlacidloOdist(x, y)) {
             System.exit(0);
         }
 
-        if (x >= this.tlacidloZapisSkore.getX() && x <= this.tlacidloZapisSkore.getX() + 150 && // x: <125, 275>
-                y >= this.tlacidloZapisSkore.getY() && y <= this.tlacidloZapisSkore.getY() + 100) { // y: <270, 370>
+        if (klikNaTlacidloZapisSkore(x, y)) {
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter format =  DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
@@ -68,6 +71,10 @@ public class EndMenu extends Menu {
                 File subor = new File("zaznam_skore.txt");
                 if (subor.exists()) {
                     FileWriter zapisovac = new FileWriter(subor.getName(), true);
+                    zapisovac.write( "V case: " + now.format(format) + " bolo dosiahnute skore: "+ skore + " / " + celkoveSkore + "\n" );
+                    zapisovac.close();
+                } else {
+                    FileWriter zapisovac = new FileWriter("zaznam_skore.txt", true);
                     zapisovac.write( "V case: " + now.format(format) + " bolo dosiahnute skore: "+ skore + " / " + celkoveSkore + "\n" );
                     zapisovac.close();
                 }
@@ -81,5 +88,17 @@ public class EndMenu extends Menu {
 
     public boolean getZapniHru() {
         return this.zapniHru;
+    }
+
+    private boolean klikNaTlacidloOdist(int x, int y) {
+        // ODIST - x: [365, 415], y: [270, 370]
+        return (x >= this.tlacidloOdist.getX() && x <= this.tlacidloOdist.getX() + 150 &&
+                y >= this.tlacidloOdist.getY() && y <= this.tlacidloOdist.getY() + 100);
+    }
+
+    private boolean klikNaTlacidloZapisSkore(int x, int y) {
+        // ZAPIS_SKORE = x: [125, 275], y: [270, 370]
+        return (x >= this.tlacidloZapisSkore.getX() && x <= this.tlacidloZapisSkore.getX() + 150 &&
+                y >= this.tlacidloZapisSkore.getY() && y <= this.tlacidloZapisSkore.getY() + 100);
     }
 }

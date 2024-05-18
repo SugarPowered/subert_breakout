@@ -30,9 +30,7 @@ public class Hra extends Component {
     private final Lopticka lopticka;
     private final Tehla[][] stenaTehiel;
 
-    private Pocitadlo pocitadlo;
-
-    private PauseMenu blackScreen;
+    private final Pocitadlo pocitadlo;
     
     private final Manazer manazer;
     private Menu menu;
@@ -40,7 +38,6 @@ public class Hra extends Component {
     private int tikCounter;
     private boolean hraBezi;
     private boolean hraPaused;
-
 
 
     // Hra() vykresli zaciatocny stav hry
@@ -83,7 +80,6 @@ public class Hra extends Component {
         this.menu = new StartMenu();
         this.manazer = new Manazer();
         this.manazer.spravujObjekt(this);
-
         this.hraPaused = false;
     }
     
@@ -102,10 +98,7 @@ public class Hra extends Component {
 
         // pohyb lopticky
         if (this.hraBezi && this.smerLopticky != null) {
-            // je lopticka na obrazovke? 640 x 480
-            if ((this.lopticka.getLoptickaX() <= (this.sirkaObrazovky - 10)) && (this.lopticka.getLoptickaX() >= 0)
-                && (this.lopticka.getLoptickaY() <= (this.vyskaObrazovky - 10)) && (this.lopticka.getLoptickaY() >= 0)) {
-                
+            if (jeLoptickaNaObrazovke()) {
                 // odraz od lavej steny
                 if (this.lopticka.getLoptickaX() <= 0) {
                     //vzdy sa odrazi vlavo dole
@@ -134,18 +127,11 @@ public class Hra extends Component {
                     }
 
                 // odraz od platformy
-                } else if ((this.lopticka.getLoptickaY() >= 415 && this.lopticka.getLoptickaY() <= 430 )
-                        && (this.lopticka.getLoptickaX() >= this.platforma.getPlatformaX())
-                            && (this.lopticka.getLoptickaX() <= this.platforma.getPlatformaX() + Platforma.DLZKA)) {
-                    //ak lopticka leti z lava smerom dole
-                    if (this.smerLopticky == SmerLopticky.VPRAVO_DOLU) {
-                        this.zmenSmerLopticky(SmerLopticky.VPRAVO_HORE);
-                    //ak lopticka leti z prava smerom dolu
-                    } else if (this.smerLopticky == SmerLopticky.VLAVO_DOLU) {
-                        this.zmenSmerLopticky(SmerLopticky.VLAVO_HORE);
-                    //ak z toho nic neplati, lopticka leti dalej
-                    } else {
-                        this.zmenSmerLopticky(this.smerLopticky);
+                } else if (this.jeKoliziaSPlatformou()) {
+                    switch (this.smerLopticky) {
+                        case VPRAVO_DOLU -> this.zmenSmerLopticky(SmerLopticky.VPRAVO_HORE); //ak lopticka leti z lava smerom dole
+                        case VLAVO_DOLU -> this.zmenSmerLopticky(SmerLopticky.VLAVO_HORE); //ak lopticka leti z prava smerom dolu
+                        default -> this.zmenSmerLopticky(this.smerLopticky);
                     }
                 //ak sa nachadza na obrazovke, je odrazena platformou, tak dalej leti
                 } else {
@@ -155,16 +141,12 @@ public class Hra extends Component {
                 // odraz od tehiel
                 for (Tehla[] riadokTehliel : this.stenaTehiel) {
                     for (Tehla tehla : riadokTehliel) {
-                        // ab. hodnota rozdielu x suradnice lopticky a lavej hornej suradnice tehly
-                        int rozdielLHX = Math.abs(this.lopticka.getLoptickaX() - tehla.getTehlaX());
-                        // ab. hodnota rozdielu x suradnice lopticky a pravej hornej suradnice tehly
-                        int rozdielPHX = Math.abs(this.lopticka.getLoptickaX() - (tehla.getTehlaX() + tehla.getDlzka()));
-                        // ab. hodnota rozdielu y suradnice lopticky a y suradnice tehly
-                        int rozdielLHY = Math.abs(this.lopticka.getLoptickaY() - tehla.getTehlaY());
-                        // ab. hodnota rozdielu y suradnice lopticky a y suradnice tehly
-                        int rozdielLDY = Math.abs(this.lopticka.getLoptickaY() - (tehla.getTehlaY() + tehla.getVyska()));
+                        int minXvzdialenost = Math.min(Math.abs(this.lopticka.getLoptickaX() - tehla.getTehlaX()),
+                                Math.abs(this.lopticka.getLoptickaX() - (tehla.getTehlaX() + tehla.getDlzka())));
+                        int minYvzdialenost = Math.min(Math.abs(this.lopticka.getLoptickaY() - tehla.getTehlaY()),
+                                Math.abs(this.lopticka.getLoptickaY() - (tehla.getTehlaY() + tehla.getVyska())));
 
-                        if (rozdielLHX >= 12 && rozdielPHX <= 12 && rozdielLHY >= 12 && rozdielLDY <= 12) {
+                        if (minXvzdialenost <= 15 && minYvzdialenost <= 15) {
                             switch (this.smerLopticky) {
                                 case VLAVO_HORE, VPRAVO_DOLU -> {
                                     tehla.zmenFarbu("black");
@@ -185,7 +167,7 @@ public class Hra extends Component {
             // lopticka sa zastavi ak prekroci obrazovku, hra tiez
             } else if (this.hraBezi) { 
                 this.hraBezi = false;
-                this.menu = new EndMenu(pocitadlo.getSkore(), pocitadlo.getCelkoveSkore());
+                this.menu = new EndMenu(this.pocitadlo.getSkore(), this.pocitadlo.getCelkoveSkore());
             }
         }
     }
@@ -220,8 +202,6 @@ public class Hra extends Component {
         }
     }
 
-
-    // TODO: fixnut zrus/aktivuj aby stopli hru
     public void zrus() { // pause trigger ESC Key
         if (this.hraBezi) {
             this.hraBezi = false;
@@ -253,5 +233,16 @@ public class Hra extends Component {
     private void zmenSmerPlatformy(SmerPlatformy novySmer) {
         this.smerPlatformy = novySmer;
         this.platforma.pohniNaNovuPoziciu(this.smerPlatformy);
+    }
+
+    private boolean jeKoliziaSPlatformou() {
+        return (this.lopticka.getLoptickaY() >= 415 && this.lopticka.getLoptickaY() <= 430 )
+                && (this.lopticka.getLoptickaX() >= this.platforma.getPlatformaX())
+                && (this.lopticka.getLoptickaX() <= this.platforma.getPlatformaX() + Platforma.DLZKA);
+    }
+
+    private boolean jeLoptickaNaObrazovke() { // rozlisenie 640 x 480
+        return (this.lopticka.getLoptickaX() <= (this.sirkaObrazovky - 10)) && (this.lopticka.getLoptickaX() >= 0)
+                && (this.lopticka.getLoptickaY() <= (this.vyskaObrazovky - 10)) && (this.lopticka.getLoptickaY() >= 0);
     }
 }

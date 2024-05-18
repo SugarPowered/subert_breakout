@@ -30,6 +30,7 @@ public class Tehla {
         this.obdlznik.posunZvisle(poloha.getY()); 
         this.obdlznik.zmenFarbu(farba);
         this.obdlznik.zobraz();
+
         this.poloha = new Poloha(poloha.getX(), poloha.getY()); // nova default Poloha platformy
     }
     
@@ -73,7 +74,4 @@ public class Tehla {
     public void zmenFarbu(String farba) {
         this.obdlznik.zmenFarbu(farba);
     }
-
-
-
 }
