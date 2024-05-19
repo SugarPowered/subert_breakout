@@ -1,25 +1,26 @@
-import java.awt.*;
 import java.util.Random;
+
 import fri.shapesge.Manazer;
 import gui.PauseMenu;
 import gui.EndMenu;
 import gui.Menu;
 import gui.StartMenu;
-import objects.*;
+
+import objects.Lopticka;
+import objects.Platforma;
+import objects.Pocitadlo;
+import objects.Tehla;
+
 import objects.sub.Poloha;
 import objects.sub.SmerLopticky;
 import objects.sub.SmerPlatformy;
 
-// TODO: Napisat dokumentacny komentar Hra
-
 /**
- * Write a description of class Menu here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * trieda Hra - zakladna trieda, v ktorej sa odohrava logika celej hry
+ * @author Michal Šubert
  */
 
-public class Hra extends Component {
+public class Hra {
     private final int sirkaObrazovky;
     private final int vyskaObrazovky;
 
@@ -40,7 +41,9 @@ public class Hra extends Component {
     private boolean hraPaused;
 
 
-    // Hra() vykresli zaciatocny stav hry
+    /**
+     * konstruktor Hra() vykresli zaciatocny stav hry
+    */
     public Hra() {
         //default poloha platformy + konstruktor
         Poloha defaultPolohaPlatformy = new Poloha(275, 430);
@@ -74,7 +77,7 @@ public class Hra extends Component {
         }
 
         // pocitadlo rozbitych tehiel
-        this.pocitadlo = new Pocitadlo(vyska*sirka);
+        this.pocitadlo = new Pocitadlo(vyska * sirka);
 
         //incializacia menu a manazera
         this.menu = new StartMenu();
@@ -82,15 +85,24 @@ public class Hra extends Component {
         this.manazer.spravujObjekt(this);
         this.hraPaused = false;
     }
-    
+
+    /**
+     * metoda posunVlavo() reaguje na stlacenie sipky vlavo - posuva platformu vlavo
+     */
     public void posunVlavo() { // trigger sipkaVlavo
         this.smerPlatformy = SmerPlatformy.VLAVO;
     }
-    
+
+    /**
+     * metoda posunVpravo() reaguje na stlacenie sipky pravo - posuva platformu vpravo
+     */
     public void posunVpravo() { // trigger sipkaVpravo
         this.smerPlatformy = SmerPlatformy.VPRAVO;
     }
-    
+
+    /**
+     * metoda tik() je manazerom posielana kazdych 8ms, deje sa v nej pohyb a odrazy lopticky
+     */
     public void tik() { //posiela sa kazde 2ms
         if (!this.hraBezi) {
             this.start();
@@ -98,7 +110,7 @@ public class Hra extends Component {
 
         // pohyb lopticky
         if (this.hraBezi && this.smerLopticky != null) {
-            if (jeLoptickaNaObrazovke()) {
+            if (this.jeLoptickaNaObrazovke()) {
                 // odraz od lavej steny
                 if (this.lopticka.getLoptickaX() <= 0) {
                     //vzdy sa odrazi vlavo dole
@@ -151,13 +163,13 @@ public class Hra extends Component {
                                 case VLAVO_HORE, VPRAVO_DOLU -> {
                                     tehla.zmenFarbu("black");
                                     this.pocitadlo.updateSkore();
-                                    tehla.setPoloha(0,0);
+                                    tehla.setPoloha(0 , 0);
                                     this.zmenSmerLopticky(SmerLopticky.VLAVO_DOLU);
                                 }
                                 case VPRAVO_HORE, VLAVO_DOLU -> {
                                     tehla.zmenFarbu("black");
                                     this.pocitadlo.updateSkore();
-                                    tehla.setPoloha(0,0);
+                                    tehla.setPoloha(0 , 0);
                                     this.zmenSmerLopticky(SmerLopticky.VPRAVO_DOLU);
                                 }
                             }
@@ -167,11 +179,14 @@ public class Hra extends Component {
             // lopticka sa zastavi ak prekroci obrazovku, hra tiez
             } else if (this.hraBezi) { 
                 this.hraBezi = false;
-                this.menu = new EndMenu(this.pocitadlo.getSkore(), this.pocitadlo.getCelkoveSkore());
+                this.menu = new EndMenu(this.pocitadlo.getSkore(), this.pocitadlo.getCelkovyPocetTehiel());
             }
         }
     }
 
+    /**
+     * metoda tik() je manazerom posielana kazdych 4ms, riesi pohyb platformy
+     */
     public void tak() {
         // pohyb platformy
         if (this.hraBezi && this.smerPlatformy != null) {
@@ -185,6 +200,9 @@ public class Hra extends Component {
         }
     }
 
+    /**
+     * metoda start() zahajuje zaciatok hry a spusta menu
+     */
     public void start() { // metoda ktorou spustis hru, lopticka ide vlavo hore
         if (this.menu == null) {
             this.menu = new StartMenu();
@@ -196,22 +214,27 @@ public class Hra extends Component {
                 this.hraBezi = true;
                 this.zmenSmerLopticky(SmerLopticky.VLAVO_HORE);
             }
-
         } else {
             this.menu.zobraz();
         }
     }
 
+    /**
+     * metoda zrus() reaguje na klavesu ESC, zastavi pre hraca hru
+     */
     public void zrus() { // pause trigger ESC Key
         if (this.hraBezi) {
             this.hraBezi = false;
             this.hraPaused = true;
-            this.menu = new PauseMenu(this.pocitadlo.getSkore(), this.pocitadlo.getCelkoveSkore());
+            this.menu = new PauseMenu(this.pocitadlo.getSkore(), this.pocitadlo.getCelkovyPocetTehiel());
             this.menu.zobraz();
         }
     }
 
-    public void aktivuj() { //unpause trigger Space Key
+    /**
+     * metoda aktivuj() reaguje na klavesu SPACE, spusti hru ak bola v pause mode
+     */
+    public void aktivuj() {
         if (this.hraPaused) {
             this.menu.skry();
             this.hraPaused = false;
@@ -219,9 +242,12 @@ public class Hra extends Component {
         }
     }
 
-    public void vyberSuradnice(int x, int y) { // myska kliknutim vyberie suradnice
+    /**
+     * metoda vyberSuradnice() reaguje na lavy klik mysi, posiela spravu menu
+     */
+    public void vyberSuradnice(int x, int y) {
         if (!this.hraBezi) {
-            this.menu.vyberSuradnice(x, y); // TODO: zistit kde je problem s dvojtym zavolanim vyberSuradnice()
+            this.menu.vyberSuradnice(x, y);
         }
     }
 

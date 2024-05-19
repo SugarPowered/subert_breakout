@@ -1,13 +1,10 @@
 package gui;
 import fri.shapesge.Obrazok;
 
-// TODO: Napisat dokumentacny komentar Tlacidlo
-
 /**
- * Write a description of class Menu here.
+ * trieda Tlacidlo - reprezentuje tlacidla zobrazovane v triedach Menu
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Michal Šubert
  */
 
 public class Tlacidlo {
@@ -16,43 +13,60 @@ public class Tlacidlo {
 
     private Obrazok obrazok;
 
-    public Tlacidlo(String typ) {
-        if (typ.equals("Odist")) {
-            this.obrazok = new Obrazok("src//img//odist.png");
-            this.x = 365;
-            this.y = 270;
-            this.obrazok.posunVodorovne(265);
-            this.obrazok.posunZvisle(170);
-        }
-        if (typ.equals("Spustit")) {
-            this.obrazok = new Obrazok("src//img//spustit.png");
-            this.x = 125;
-            this.y = 270;
-            this.obrazok.posunVodorovne(25);
-            this.obrazok.posunZvisle(170);
-        }
-        if (typ.equals("ZapisSkore")) {
-            this.obrazok = new Obrazok("src//img//zapis_skore.png");
-            this.x = 125;
-            this.y = 270;
-            this.obrazok.posunVodorovne(25);
-            this.obrazok.posunZvisle(170);
+    /**
+     * konstruktor Tlacidlo - tvori obrazok na zaklade enumu TlacidloTyp
+     */
+    public Tlacidlo(TlacidloTyp tlacidloTyp) {
+        switch (tlacidloTyp) {
+            case SPUSTIT -> {
+                this.obrazok = new Obrazok("src//resources//spustit.png");
+                this.x = 125;
+                this.y = 270;
+                this.obrazok.posunVodorovne(25);
+                this.obrazok.posunZvisle(170);
+            }
+            case ODIST -> {
+                this.obrazok = new Obrazok("src//resources//odist.png");
+                this.x = 365;
+                this.y = 270;
+                this.obrazok.posunVodorovne(265);
+                this.obrazok.posunZvisle(170);
+            }
+            case ZAPIS_SKORE -> {
+                this.obrazok = new Obrazok("src//resources//zapis_skore.png");
+                this.x = 125;
+                this.y = 270;
+                this.obrazok.posunVodorovne(25);
+                this.obrazok.posunZvisle(170);
+            }
         }
     }
 
+    /**
+     * metoda skry() - skryva obrazok reprezentujuci tlacidlo z shapesGE
+     */
     public void skry() {
         this.obrazok.skry();
     }
 
+    /**
+     * metoda zobraz() - zobrazuje obrazok reprezentujuci tlacidlo z shapesGE
+     */
     public void zobraz() {
         this.obrazok.zobraz();
     }
 
+    /**
+     * metoda getX() - vracia X suradnicu tlacidla
+     */
     public int getX() {
-        return x;
+        return this.x;
     }
 
+    /**
+     * metoda getY() - vracia Y suradnicu tlacidla
+     */
     public int getY() {
-        return y;
+        return this.y;
     }
 }

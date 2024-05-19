@@ -1,12 +1,6 @@
-
-// TODO: Napisat dokumentacny komentar Main
-// TODO: Optimalizovat pre checkstyle
-
 /**
- * Write a description of class Main here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * trieda Main - inicializuje a spusta sa v nej instancia triedy Hra
+ * @author Michal Šubert
  */
 
 public class Main {

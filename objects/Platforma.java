@@ -4,7 +4,11 @@ import fri.shapesge.Obdlznik;
 import objects.sub.Poloha;
 import objects.sub.SmerPlatformy;
 
-// TODO: Napisat dokumentacny komentar Platforma
+/**
+ * trieda Platforma - reprezentuje objekt Platformy
+ *
+ * @author Michal Šubert
+ */
 
 public class Platforma {
     public static final int DLZKA = 90;
@@ -12,7 +16,10 @@ public class Platforma {
 
     private final Poloha poloha;
     private final Obdlznik obdlznik; // shapesGE default x = 60, y = 50
-    
+
+    /**
+     * konstruktor Platforma - vykresli Obdlznik z ShapesGE reprezentujuci platformu a priradzuje polohu z parame
+     */
     public Platforma(Poloha poloha) {
         this.obdlznik = new Obdlznik(0, 0);
         this.obdlznik.zmenStrany(DLZKA, VYSKA);
@@ -25,41 +32,28 @@ public class Platforma {
         
         this.poloha = new Poloha(poloha.getX(), poloha.getY()); // priradenie polohy
     }
-    
+
+    /**
+     * metoda pohniNaNovuPoziciu() - na zaklade parametra smerPlatformy pohne na novu poziciu
+     */
     public void pohniNaNovuPoziciu(SmerPlatformy smerPlatformy) {
-        if (smerPlatformy.getVektorX() == 1) { //smer posunu vpravo
-            int vzdialenost = 1;
-            this.poloha.setX(this.poloha.getX() + vzdialenost);  // posun atributu poloha
-            this.obdlznik.posunVodorovne(vzdialenost);
-        } else if (smerPlatformy.getVektorX() == -1) { //smer posun vlavo
-            int vzdialenost = -1;
-            this.poloha.setX(this.poloha.getX() + vzdialenost);  // posun atributu poloha
-            this.obdlznik.posunVodorovne(vzdialenost);
+        switch (smerPlatformy) {
+            case VPRAVO -> {
+                int vzdialenost = 1;
+                this.poloha.setX(this.poloha.getX() + vzdialenost);  // posun atributu poloha
+                this.obdlznik.posunVodorovne(vzdialenost);
+            } case VLAVO -> {
+                int vzdialenost = -1;
+                this.poloha.setX(this.poloha.getX() + vzdialenost);  // posun atributu poloha
+                this.obdlznik.posunVodorovne(vzdialenost);
+            }
         }
     }
-    
+
+    /**
+     * metoda getPlatformaX() - vracia X suradnicu platformy
+     */
     public int getPlatformaX() {
         return this.poloha.getX();
-    }
-
-    // Metody pre pripadne pouzitie: TODO: vycistit
-    public int getPlatformaY() {
-        return this.poloha.getY();
-    }
-    
-    public void setPlatformuX(int x) {
-        this.obdlznik.posunVodorovne(x - this.poloha.getX());        
-        this.poloha.setX(x);
-    }
-    
-    public void zobrazPlatformu() {
-        this.obdlznik.zobraz();
-    }
-    
-    public void skryPlatformu() {
-        this.obdlznik.skry();
-    }
-    
-    public void zmenFarbu(String farba) {
     }
 }

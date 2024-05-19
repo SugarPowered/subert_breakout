@@ -1,12 +1,9 @@
 package objects.sub;
 
-// TODO: Napisat dokumentacny komentar SmerLopticky
-
 /**
- * Enumeration class Smer - write a description of the enum class here
- * 
- * @author (your name here)
- * @version (version number or date here)
+ * enum trieda SmerLopticky - uchovava mozne smery Lopticky a ich uhly, X a Y vektory
+ *
+ * @author Michal Šubert
  */
 
 public enum SmerLopticky {
@@ -15,6 +12,6 @@ public enum SmerLopticky {
     VLAVO_DOLU (315, -1, 1),
     VPRAVO_DOLU (225, 1, 1);
 
-    SmerLopticky(int uhol, int vektorX, int vektorY) {}
+    SmerLopticky(int uhol, int vektorX, int vektorY) { }
 }
 

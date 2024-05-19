@@ -2,15 +2,19 @@ package gui;
 
 import fri.shapesge.TextBlock;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * trieda EndMenu - podtrieda Menu, reprezentuje koncove menu, ktore sa zobrazi po odohrati hry
+ *
+ * @author Michal Šubert
+ */
 
-// TODO: Napisat dokumentacny komentar EndMenu
 
 public class EndMenu extends Menu {
 
@@ -25,14 +29,18 @@ public class EndMenu extends Menu {
 
     private final TextBlock textBlock;
 
+    /**
+     * konstruktor EndMenu - dedi konstruktor triedy Menu a dotvara tlacidla ZapisSkore a Odist,
+     * zaznamenava parametre skore a celkoveSkore a tvori z nich atributy
+     */
     public EndMenu(int skore, int celkoveSkore) {
         super();
 
         this.skore = skore;
         this.celkoveSkore = celkoveSkore;
 
-        this.tlacidloZapisSkore = new Tlacidlo("ZapisSkore");
-        this.tlacidloOdist = new Tlacidlo("Odist");
+        this.tlacidloZapisSkore = new Tlacidlo(TlacidloTyp.ZAPIS_SKORE);
+        this.tlacidloOdist = new Tlacidlo(TlacidloTyp.ODIST);
 
         if (skore != 0) {
             this.textBlock = new TextBlock("Nevadí! Dosiahol si skore: " + skore + " / " + celkoveSkore, 250, 220);
@@ -44,6 +52,9 @@ public class EndMenu extends Menu {
 
     }
 
+    /**
+     * metoda skry() - dedi z metody skry() z Menu a skryva tlacidla ZapisSkore a Odist
+     */
     public void skry() {
         super.skry();
         this.tlacidloZapisSkore.skry();
@@ -51,6 +62,9 @@ public class EndMenu extends Menu {
         this.textBlock.makeInvisible();
     }
 
+    /**
+     * metoda zobraz() - dedi z metody zobraz() z Menu a vykresluje tlacidla ZapisSkore a Odist
+     */
     public void zobraz() {
         super.zobraz();
         this.tlacidloZapisSkore.zobraz();
@@ -58,12 +72,15 @@ public class EndMenu extends Menu {
         this.textBlock.makeVisible();
     }
 
+    /**
+     * metoda vyberSuradnice() - na zaklade parametrov x a y zistuje polohu kliknutia, vykonava akciu pre tlacidla ZapisSkore a Odist
+     */
     public void vyberSuradnice(int x, int y) {
-        if (klikNaTlacidloOdist(x, y)) {
+        if (this.klikNaTlacidloOdist(x, y)) {
             System.exit(0);
         }
 
-        if (klikNaTlacidloZapisSkore(x, y)) {
+        if (this.klikNaTlacidloZapisSkore(x, y)) {
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter format =  DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
@@ -71,11 +88,11 @@ public class EndMenu extends Menu {
                 File subor = new File("zaznam_skore.txt");
                 if (subor.exists()) {
                     FileWriter zapisovac = new FileWriter(subor.getName(), true);
-                    zapisovac.write( "V case: " + now.format(format) + " bolo dosiahnute skore: "+ skore + " / " + celkoveSkore + "\n" );
+                    zapisovac.write( "V case: " + now.format(format) + " bolo dosiahnute skore: " + this.skore + " / " + this.celkoveSkore + "\n" );
                     zapisovac.close();
                 } else {
                     FileWriter zapisovac = new FileWriter("zaznam_skore.txt", true);
-                    zapisovac.write( "V case: " + now.format(format) + " bolo dosiahnute skore: "+ skore + " / " + celkoveSkore + "\n" );
+                    zapisovac.write( "V case: " + now.format(format) + " bolo dosiahnute skore: " + this.skore + " / " + this.celkoveSkore + "\n" );
                     zapisovac.close();
                 }
             } catch (IOException e) {
@@ -86,6 +103,9 @@ public class EndMenu extends Menu {
         }
     }
 
+    /**
+     * metoda getZapniHru() - getter pre atribut zapniHru, vracia true/false podla stavu zapnutia hry
+     */
     public boolean getZapniHru() {
         return this.zapniHru;
     }

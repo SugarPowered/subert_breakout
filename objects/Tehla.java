@@ -3,22 +3,22 @@ package objects;
 import fri.shapesge.Obdlznik;
 import objects.sub.Poloha;
 
-// TODO: Napisat dokumentacny komentar Tehla
-
 /**
- * Write a description of class Menu here.
+ * trieda Tehla - reprezentuje objekt Tehly v hre
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Michal Šubert
  */
 
 public class Tehla {
-    private int dlzka;
-    private int vyska;
+    private final int dlzka;
+    private final int vyska;
 
     private final Obdlznik obdlznik; // shapesGE default x = 60, y = 50
     private final Poloha poloha;
-    
+
+    /**
+     * konstruktor Tehla - vykresli Obdlznik podla parametrov dlzka, vyska z ShapesGE a priradzuje polohu z parametra
+     */
     public Tehla(Poloha poloha, int dlzka, int vyska) {
         this.dlzka = dlzka;
         this.vyska = vyska;
@@ -33,23 +33,38 @@ public class Tehla {
 
         this.poloha = new Poloha(poloha.getX(), poloha.getY()); // nova default Poloha platformy
     }
-    
+
+    /**
+     * metoda getTehlaX() - getter pre X suradnicu tehly
+     */
     public int getTehlaX() {
         return this.poloha.getX();
     }
-    
+
+    /**
+     * metoda getTehlaY() - getter pre Y suradnicu tehly
+     */
     public int getTehlaY() {
         return this.poloha.getY();
     }
-    
+
+    /**
+     * metoda getDlzka() - getter pre atribut dlzky tehly
+     */
     public int getDlzka() {
         return this.dlzka;
     }
-    
+
+    /**
+     * metoda getVyska() - getter pre atribut vysky tehly
+     */
     public int getVyska() {
         return this.vyska;
     }
 
+    /**
+     * metoda setPoloha() - setter pre polohu tehly na zaklade parametrov x a y
+     */
     public void setPoloha(int x, int y) {
         this.obdlznik.posunVodorovne(x - this.poloha.getX());
         this.poloha.setX(x);
@@ -57,7 +72,10 @@ public class Tehla {
         this.obdlznik.posunVodorovne(y - this.poloha.getY());
         this.poloha.setY(y);
     }
-    
+
+    /**
+     * metoda zmenCislomFarbu() - na zaklade zadaneho cisla v parametri zmeni farbu danej tehly
+     */
     public void zmenCislomFarbu(int cislo) {
         switch (cislo) {
             case 0 -> this.obdlznik.zmenFarbu("red");
@@ -70,7 +88,10 @@ public class Tehla {
         }
         
     }
-    
+
+    /**
+     * metoda zmenFarbu() - na zaklade zadaneho Stringu v parametri zmeni farbu danej tehly v ShapesGE
+     */
     public void zmenFarbu(String farba) {
         this.obdlznik.zmenFarbu(farba);
     }

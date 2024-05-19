@@ -2,7 +2,11 @@ package objects;
 
 import fri.shapesge.TextBlock;
 
-// TODO: Napisat dokumentacny komentar Pocitadlo
+/**
+ * trieda Pocitadlo - reprezentuje objekt pocitadla skore v hre
+ *
+ * @author Michal Šubert
+ */
 
 public class Pocitadlo {
 
@@ -12,6 +16,10 @@ public class Pocitadlo {
 
     private TextBlock textBlock;
 
+    /**
+     * konstruktor Pocitadlo - zaznamenava z parametra celkovy pocet skore
+     * a vytvara textBlok na ktorom skore zobrazuje v porovnani s celkovym skore
+     */
     public Pocitadlo(int celkovyPocetTehiel) {
         this.celkovyPocetTehiel = celkovyPocetTehiel;
         this.skore = celkovyPocetTehiel;
@@ -21,6 +29,9 @@ public class Pocitadlo {
         this.textBlock.makeVisible();
     }
 
+    /**
+     * metoda updateSkore() - odpocitava pocet skore po kazdej rozbitej tehle, vykresluje textBlok nanovo
+     */
     public void updateSkore() {
         this.skore = this.skore - 1;
 
@@ -30,11 +41,17 @@ public class Pocitadlo {
         this.textBlock.makeVisible();
     }
 
+    /**
+     * metoda getSkore() - getter pre atribut skore
+     */
     public int getSkore() {
         return this.skore;
     }
 
-    public int getCelkoveSkore() {
+    /**
+     * metoda getCelkovyPocetTehiel() - getter pre atribut celkovyPocetTehiel
+     */
+    public int getCelkovyPocetTehiel() {
         return this.celkovyPocetTehiel;
     }
 }

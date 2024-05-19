@@ -4,25 +4,20 @@ import fri.shapesge.Obdlznik;
 import fri.shapesge.Obrazok;
 import fri.shapesge.Manazer;
 
-// TODO: Napisat dokumentacny komentar Menu
-
 /**
- * Write a description of class Menu here.
+ * Abstraktna trieda Menu - vytvara zaklad pre dalsie typy Menu v hre
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Michal Šubert
  */
 public abstract class Menu {
     private final Obdlznik pozadie;
-
     private final Manazer manazer;
-
     private Obrazok titulnaFotka;
     private boolean zapniHru;
 
     
     /**
-     * Constructor for objects of class Menu
+     * Konstruktor Menu() - vytvara a vykresuje pozadie a titulnu fotku menu
      */
     public Menu() {
         this.manazer = new Manazer();
@@ -34,27 +29,42 @@ public abstract class Menu {
         this.pozadie.zmenFarbu("black");
         this.pozadie.skry();
 
-        this.titulnaFotka = new Obrazok("src//img//title.png");
+        this.titulnaFotka = new Obrazok("src//resources//title.png");
         this.titulnaFotka.posunVodorovne(-100);
         this.titulnaFotka.posunZvisle(-100);
     }
-    
+
+    /**
+     * metoda getZapniHru() - getter pre atribut zapniHru vracia true/false podla stavu zapnutia hry
+     */
     public boolean getZapniHru() {
-        return zapniHru;
+        return this.zapniHru;
     }
-    
+
+    /**
+     * metoda skry() - skryva vykreslene pozadie a titulnu fotku z ShapesGE
+     */
     public void skry() {
         this.pozadie.skry();
         this.titulnaFotka.skry();
     }
-    
+
+    /**
+     * metoda zobraz() - vykresluje pozadie a titulnu fotku cez ShapeGE
+     */
     public void zobraz() {
         this.pozadie.zobraz();
         this.titulnaFotka.zobraz();
     }
 
-    public void vyberSuradnice(int x, int y){}
+    /**
+     * metoda vyberSuradnice() - metoda, kde sa v podtriedach tvoria akcie k tlacidlach menu
+     */
+    public void vyberSuradnice(int x, int y) { }
 
+    /**
+     * metoda getTitulnaFotka() - getter pre atribut titulnaFotka, vracia Obrazok
+     */
     public Obrazok getTitulnaFotka() {
         return this.titulnaFotka;
     }
